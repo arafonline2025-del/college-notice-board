@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazrat Shah Ali Mohila College - Digital Notice Board</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hazrat Shah Ali Mohila College</title>
 
   <style>
     body{
@@ -25,23 +25,19 @@
       text-align:center;
     }
     h1{
-      margin:0;
       color:#0b57d0;
-      font-size:30px;
+      margin:0;
     }
     h2{
-      margin:8px 0 20px;
       color:#333;
-      letter-spacing:2px;
-      font-size:18px;
+      margin:8px 0 20px;
     }
     .notice-title{
-      display:inline-block;
       background:#0b57d0;
       color:#fff;
-      padding:10px 24px;
+      display:inline-block;
+      padding:10px 20px;
       border-radius:999px;
-      font-size:22px;
       font-weight:bold;
       margin-bottom:20px;
     }
@@ -49,15 +45,14 @@
       font-size:24px;
       font-weight:bold;
       margin:20px 0;
-      color:#111;
       min-height:60px;
     }
     #date{
       color:#555;
-      font-size:16px;
     }
   </style>
 </head>
+
 <body>
 
   <div class="card">
@@ -98,24 +93,13 @@
 
       const script = document.createElement('script');
       script.id = 'noticeScript';
-      script.src =
-        API_URL + '?callback=' + callbackName + '&t=' + Date.now();
-
-      script.onerror = function() {
-        document.getElementById('notice').innerText =
-          'Notice load করা যাচ্ছে না';
-        document.getElementById('date').innerText =
-          'Data connection পরীক্ষা করুন';
-      };
+      script.src = API_URL + '?callback=' + callbackName + '&t=' + Date.now();
 
       document.body.appendChild(script);
     }
 
     function showNotice() {
-      if (notices.length === 0) return;
-
       const item = notices[current];
-
       document.getElementById('notice').innerText = item.notice || '';
       document.getElementById('date').innerText =
         'তারিখ: ' + (item.date || '');
@@ -123,13 +107,10 @@
 
     setInterval(function() {
       if (notices.length > 1) {
-        current++;
-        if (current >= notices.length) current = 0;
+        current = (current + 1) % notices.length;
         showNotice();
       }
     }, 10000);
-
-    setInterval(loadNotices, 30000);
 
     loadNotices();
   </script>
