@@ -117,12 +117,8 @@ body {
 
 <script>
 
-/*
-Google Sheet CSV
-*/
-
-const SHEET_URL =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vRdVdSYMuHLm1k-wO17o7BOc69fsJfLvL6qUX2yrupo4Nn1-uoLdE8Xr6p9HfsTy48nJfO6ArC_W5qO/pub?output=csv";
+const API_URL =
+"https://script.google.com/macros/s/AKfycbzVzvVw2feuObR6u7oPGJhBRQIsNvGZRolFT_OZ-qE7uRT-F-Fl7IGSiSKqxlFV4QRi/exec";
 
 let notices = [];
 let current = 0;
@@ -132,36 +128,16 @@ async function loadNotices() {
     try {
 
         const response = await fetch(
-            SHEET_URL + "&cache=" + Date.now()
+            API_URL + "?t=" + Date.now()
         );
 
-        const text = await response.text();
-
-        const rows = text.trim().split(/\r?\n/);
-
-        notices = [];
-
-        for (let i = 1; i < rows.length; i++) {
-
-            const columns = rows[i].split(",");
-
-            const notice = columns[0];
-            const date = columns[1];
-            const status = columns[2];
-
-            if (
-                notice &&
-                status &&
-                status.trim().toLowerCase() === "active"
-            ) {
-
-                notices.push({
-                    notice: notice,
-                    date: date
-                });
-
-            }
+        if (!response.ok) {
+            throw new Error("Network error");
         }
+
+        const data = await response.json();
+
+        notices = data;
 
         if (notices.length === 0) {
 
@@ -178,12 +154,13 @@ async function loadNotices() {
 
     } catch (error) {
 
+        console.log(error);
+
         document.getElementById("notice").innerText =
             "Notice load করা যাচ্ছে না";
 
         document.getElementById("date").innerText =
-            "Internet connection পরীক্ষা করুন";
-
+            "Data connection পরীক্ষা করুন";
     }
 }
 
@@ -202,7 +179,7 @@ function showNotice() {
 
 setInterval(function() {
 
-    if (notices.length > 0) {
+    if (notices.length > 1) {
 
         current++;
 
