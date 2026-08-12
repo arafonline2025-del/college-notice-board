@@ -1,93 +1,109 @@
-<script>
-const API_URL =
-"https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec";
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Notice Board</title>
 
-let notices = [];
-let current = 0;
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f5f7fb;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      margin:0;
+    }
+    .card{
+      width:90%;
+      max-width:500px;
+      background:#fff;
+      padding:24px;
+      border-radius:16px;
+      box-shadow:0 4px 16px rgba(0,0,0,.1);
+      text-align:center;
+    }
+    h1{margin-top:0;color:#0b57d0}
+    #notice{font-size:22px;font-weight:bold;margin:20px 0}
+    #date{color:#555}
+  </style>
+</head>
+<body>
 
-function loadNotices() {
+  <div class="card">
+    <h1>📢 College Notice Board</h1>
+    <div id="notice">Loading notice...</div>
+    <div id="date"></div>
+  </div>
 
-    const callbackName = "showNotices";
+  <script>
+    const API_URL =
+      'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
 
-    window[callbackName] = function(data) {
+    let notices = [];
+    let current = 0;
 
+    function loadNotices() {
+      const callbackName = 'showNotices';
+
+      window[callbackName] = function(data) {
         notices = data || [];
 
         if (notices.length === 0) {
-            document.getElementById("notice").innerText =
-                "বর্তমানে কোনো নতুন নোটিশ নেই";
-            document.getElementById("date").innerText = "";
-            return;
+          document.getElementById('notice').innerText =
+            'বর্তমানে কোনো নতুন নোটিশ নেই';
+          document.getElementById('date').innerText = '';
+          return;
         }
 
         current = 0;
         showNotice();
-    };
+      };
 
-    const oldScript = document.getElementById("noticeScript");
+      const oldScript = document.getElementById('noticeScript');
+      if (oldScript) oldScript.remove();
 
-    if (oldScript) {
-        oldScript.remove();
+      const script = document.createElement('script');
+      script.id = 'noticeScript';
+      script.src =
+        API_URL + '?callback=' + callbackName + '&t=' + Date.now();
+
+      script.onerror = function() {
+        document.getElementById('notice').innerText =
+          'Notice load করা যাচ্ছে না';
+        document.getElementById('date').innerText =
+          'Data connection পরীক্ষা করুন';
+      };
+
+      document.body.appendChild(script);
     }
 
-    const script = document.createElement("script");
+    function showNotice() {
+      if (notices.length === 0) return;
 
-    script.id = "noticeScript";
+      const item = notices[current];
 
-    script.src =
-        API_URL +
-        "?callback=" +
-        callbackName +
-        "&t=" +
-        Date.now();
+      document.getElementById('notice').innerText = item.notice || '';
+      document.getElementById('date').innerText =
+        'তারিখ: ' + (item.date || '');
+    }
 
-    script.onerror = function() {
-        document.getElementById("notice").innerText =
-            "Notice load করা যাচ্ছে না";
-
-        document.getElementById("date").innerText =
-            "Data connection পরীক্ষা করুন";
-    };
-
-    document.body.appendChild(script);
-}
-
-function showNotice() {
-
-    if (notices.length === 0) return;
-
-    const item = notices[current];
-
-    document.getElementById("notice").innerText =
-        item.notice;
-
-    document.getElementById("date").innerText =
-        "তারিখ: " + item.date;
-}
-
-
-/* প্রতি 10 সেকেন্ডে notice পরিবর্তন */
-setInterval(function() {
-
-    if (notices.length > 1) {
-
+    // প্রতি 10 সেকেন্ডে notice পরিবর্তন
+    setInterval(function() {
+      if (notices.length > 1) {
         current++;
-
-        if (current >= notices.length) {
-            current = 0;
-        }
-
+        if (current >= notices.length) current = 0;
         showNotice();
-    }
+      }
+    }, 10000);
 
-}, 10000);
+    // প্রতি 30 সেকেন্ডে নতুন data check
+    setInterval(loadNotices, 30000);
 
+    // প্রথমবার load
+    loadNotices();
+  </script>
 
-/* প্রতি 30 সেকেন্ডে নতুন data check */
-setInterval(loadNotices, 30000);
-
-
-/* প্রথমবার load */
-loadNotices();
-
-</script>
+</body>
+</html>
