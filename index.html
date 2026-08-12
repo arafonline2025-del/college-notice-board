@@ -118,26 +118,20 @@ body {
 <script>
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzVzvVw2feuObR6u7oPGJhBRQIsNvGZRolFT_OZ-qE7uRT-F-Fl7IGSiSKqxlFV4QRi/exec";
+"https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec";
 
 let notices = [];
 let current = 0;
+let scriptTag = null;
 
-async function loadNotices() {
+function loadNotices() {
 
-    try {
+    const callbackName =
+        "noticeCallback_" + Date.now();
 
-        const response = await fetch(
-            API_URL + "?t=" + Date.now()
-        );
+    window[callbackName] = function(data) {
 
-        if (!response.ok) {
-            throw new Error("Network error");
-        }
-
-        const data = await response.json();
-
-        notices = data;
+        notices = data || [];
 
         if (notices.length === 0) {
 
@@ -146,22 +140,46 @@ async function loadNotices() {
 
             document.getElementById("date").innerText = "";
 
-            return;
+        } else {
+
+            current = 0;
+            showNotice();
         }
 
-        current = 0;
-        showNotice();
+        delete window[callbackName];
 
-    } catch (error) {
+        if (scriptTag) {
+            scriptTag.remove();
+            scriptTag = null;
+        }
+    };
 
-        console.log(error);
+    scriptTag = document.createElement("script");
+
+    scriptTag.src =
+        API_URL +
+        "?callback=" +
+        callbackName +
+        "&t=" +
+        Date.now();
+
+    scriptTag.onerror = function() {
 
         document.getElementById("notice").innerText =
             "Notice load করা যাচ্ছে না";
 
         document.getElementById("date").innerText =
-            "Data connection পরীক্ষা করুন";
-    }
+            "Internet connection পরীক্ষা করুন";
+
+        delete window[callbackName];
+
+        if (scriptTag) {
+            scriptTag.remove();
+            scriptTag = null;
+        }
+    };
+
+    document.body.appendChild(scriptTag);
 }
 
 function showNotice() {
@@ -177,6 +195,8 @@ function showNotice() {
         "তারিখ: " + item.date;
 }
 
+
+/* প্রতি 10 সেকেন্ডে পরের notice */
 setInterval(function() {
 
     if (notices.length > 1) {
@@ -192,8 +212,14 @@ setInterval(function() {
 
 }, 10000);
 
-setInterval(loadNotices, 30000);
 
+/* প্রতি 30 সেকেন্ডে Google Sheet থেকে নতুন notice check */
+setInterval(function() {
+    loadNotices();
+}, 30000);
+
+
+/* প্রথমবার load */
 loadNotices();
 
 </script>
