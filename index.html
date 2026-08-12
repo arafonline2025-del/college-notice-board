@@ -1,11 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <title>Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hazrat Shah Ali Mohila College</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#f5f7fb;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+    }
+
+    .card{
+      width:90%;
+      max-width:650px;
+      background:white;
+      padding:30px;
+      border-radius:20px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.1);
+      text-align:center;
+    }
+
+    h1{
+      color:#0b57d0;
+      margin:0;
+      font-size:32px;
+    }
+
+    h2{
+      margin:10px 0 20px;
+      color:#444;
+      letter-spacing:2px;
+      font-size:18px;
+    }
+
+    .notice-title{
+      display:inline-block;
+      background:#0b57d0;
+      color:white;
+      padding:10px 24px;
+      border-radius:999px;
+      font-weight:bold;
+      font-size:22px;
+      margin-bottom:20px;
+    }
+
+    #notice{
+      font-size:24px;
+      font-weight:bold;
+      color:#111;
+      margin:20px 0;
+      min-height:80px;
+    }
+
+    #date{
+      color:#666;
+      font-size:16px;
+    }
+  </style>
 </head>
-<body style="font-family:Arial;text-align:center;padding-top:100px;">
-  <h1 style="color:green;">SUCCESS</h1>
-  <p>GitHub Pages কাজ করছে</p>
+
+<body>
+
+  <div class="card">
+    <h1>Hazrat Shah Ali Mohila College</h1>
+    <h2>DIGITAL NOTICE BOARD</h2>
+
+    <div class="notice-title">📢 NOTICE</div>
+
+    <div id="notice">Loading notice...</div>
+    <div id="date"></div>
+  </div>
+
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
+
+    let notices = [];
+    let current = 0;
+
+    function loadNotices() {
+      const callbackName = 'showNotices';
+
+      window[callbackName] = function(data) {
+        notices = data || [];
+
+        if (notices.length === 0) {
+          document.getElementById('notice').innerText =
+            'বর্তমানে কোনো নতুন নোটিশ নেই';
+          document.getElementById('date').innerText = '';
+          return;
+        }
+
+        current = 0;
+        showNotice();
+      };
+
+      const oldScript = document.getElementById('noticeScript');
+      if (oldScript) oldScript.remove();
+
+      const script = document.createElement('script');
+      script.id = 'noticeScript';
+      script.src = API_URL + '?callback=' + callbackName + '&t=' + Date.now();
+
+      script.onerror = function() {
+        document.getElementById('notice').innerText =
+          'Notice load করা যাচ্ছে না';
+        document.getElementById('date').innerText =
+          'Data connection পরীক্ষা করুন';
+      };
+
+      document.body.appendChild(script);
+    }
+
+    function showNotice() {
+      if (notices.length === 0) return;
+
+      const item = notices[current];
+
+      document.getElementById('notice').innerText = item.notice || '';
+      document.getElementById('date').innerText =
+        'তারিখ: ' + (item.date || '');
+    }
+
+    setInterval(function() {
+      if (notices.length > 1) {
+        current++;
+        if (current >= notices.length) current = 0;
+        showNotice();
+      }
+    }, 10000);
+
+    setInterval(loadNotices, 30000);
+
+    loadNotices();
+  </script>
+
 </body>
 </html>
