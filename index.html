@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -14,7 +15,7 @@ box-sizing:border-box;
 
 body{
 font-family:Arial,sans-serif;
-height:100vh;
+min-height:100vh;
 background:linear-gradient(180deg,#065f46 0%, #00112b 25%, #000814 100%);
 color:white;
 display:flex;
@@ -23,17 +24,40 @@ flex-direction:column;
 
 .header{
 background:linear-gradient(90deg,#065f46,#047857,#065f46);
-padding:25px 10px;
+padding:20px 10px;
 text-align:center;
 border-bottom:3px solid #d4af37;
 }
 
-.header h1{
-font-size:56px;
-font-weight:800;
+.college-top{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
 }
 
-.header h2{
+.college-logo{
+width:100px;
+height:100px;
+object-fit:contain;
+background:white;
+border-radius:50%;
+padding:4px;
+box-shadow:0 0 12px rgba(255,255,255,0.4);
+}
+
+.college-text{
+text-align:left;
+}
+
+.college-text h1{
+font-size:52px;
+font-weight:800;
+line-height:1.1;
+}
+
+.college-text h2{
 font-size:22px;
 letter-spacing:4px;
 margin-top:10px;
@@ -104,11 +128,20 @@ border-top:2px solid #d4af37;
 
 @media (max-width:768px){
 
-.header h1{
+.college-top{
+flex-direction:column;
+gap:10px;
+}
+
+.college-text{
+text-align:center;
+}
+
+.college-text h1{
 font-size:34px;
 }
 
-.header h2{
+.college-text h2{
 font-size:16px;
 }
 
@@ -143,8 +176,18 @@ font-size:18px;
 <body>
 
 <div class="header">
-<h1>Hazrat Shah Ali Mohila College</h1>
-<h2>DIGITAL NOTICE BOARD</h2>
+
+  <div class="college-top">
+
+    <img src="logo.png" alt="College Logo" class="college-logo">
+
+    <div class="college-text">
+      <h1>Hazrat Shah Ali Mohila College</h1>
+      <h2>DIGITAL NOTICE BOARD</h2>
+    </div>
+
+  </div>
+
 </div>
 
 <div class="notice-box">
@@ -216,6 +259,7 @@ showNotice();
 
 function updateClock(){
 const now=new Date();
+
 document.getElementById('clock').innerText=
 now.toLocaleTimeString('en-US',{hour12:true});
 
@@ -235,3 +279,4 @@ loadNotices();
 
 </body>
 </html>
+```
