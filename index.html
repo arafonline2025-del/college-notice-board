@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>College Notice Board</title>
+  <title>Hazrat Shah Ali Mohila College - Digital Notice Board</title>
 
   <style>
     body{
@@ -17,22 +17,54 @@
     }
     .card{
       width:90%;
-      max-width:500px;
+      max-width:600px;
       background:#fff;
       padding:24px;
       border-radius:16px;
       box-shadow:0 4px 16px rgba(0,0,0,.1);
       text-align:center;
     }
-    h1{margin-top:0;color:#0b57d0}
-    #notice{font-size:22px;font-weight:bold;margin:20px 0}
-    #date{color:#555}
+    h1{
+      margin:0;
+      color:#0b57d0;
+      font-size:30px;
+    }
+    h2{
+      margin:8px 0 20px;
+      color:#333;
+      letter-spacing:2px;
+      font-size:18px;
+    }
+    .notice-title{
+      display:inline-block;
+      background:#0b57d0;
+      color:#fff;
+      padding:10px 24px;
+      border-radius:999px;
+      font-size:22px;
+      font-weight:bold;
+      margin-bottom:20px;
+    }
+    #notice{
+      font-size:24px;
+      font-weight:bold;
+      margin:20px 0;
+      color:#111;
+      min-height:60px;
+    }
+    #date{
+      color:#555;
+      font-size:16px;
+    }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>📢 College Notice Board</h1>
+    <h1>Hazrat Shah Ali Mohila College</h1>
+    <h2>DIGITAL NOTICE BOARD</h2>
+    <div class="notice-title">📢 NOTICE</div>
+
     <div id="notice">Loading notice...</div>
     <div id="date"></div>
   </div>
@@ -89,7 +121,6 @@
         'তারিখ: ' + (item.date || '');
     }
 
-    // প্রতি 10 সেকেন্ডে notice পরিবর্তন
     setInterval(function() {
       if (notices.length > 1) {
         current++;
@@ -98,10 +129,8 @@
       }
     }, 10000);
 
-    // প্রতি 30 সেকেন্ডে নতুন data check
     setInterval(loadNotices, 30000);
 
-    // প্রথমবার load
     loadNotices();
   </script>
 
