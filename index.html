@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hazrat Shah Ali Mohila College</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #06111d;
+    color: white;
+    font-family: Arial, "Noto Sans Bengali", sans-serif;
+    overflow: hidden;
+}
+
+.header {
+    height: 22vh;
+    background: linear-gradient(135deg, #006a4e, #00916b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.college {
+    font-size: 4vw;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 2vw;
+    margin-top: 12px;
+}
+
+.notice-area {
+    height: 68vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+}
+
+.notice-box {
+    width: 90%;
+}
+
+.notice-title {
+    color: #ffd700;
+    font-size: 3vw;
+    font-weight: bold;
+    margin-bottom: 35px;
+}
+
+#notice {
+    font-size: 4vw;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+#date {
+    margin-top: 35px;
+    font-size: 2vw;
+    color: #b9c9d9;
+}
+
+.footer {
+    height: 10vh;
+    background: #020810;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5vw;
+    color: #9fb0c0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="college">
+        Hazrat Shah Ali Mohila College
+    </div>
+
+    <div class="subtitle">
+        DIGITAL NOTICE BOARD
+    </div>
+</div>
+
+<div class="notice-area">
+    <div class="notice-box">
+
+        <div class="notice-title">
+            📢 NOTICE
+        </div>
+
+        <div id="notice">
+            Notice loading...
+        </div>
+
+        <div id="date"></div>
+
+    </div>
+</div>
+
+<div class="footer">
+    Hazrat Shah Ali Mohila College
+</div>
+
+<script>
+
+/*
+Google Sheet CSV
+*/
+
+const SHEET_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vRdVdSYMuHLm1k-wO17o7BOc69fsJfLvL6qUX2yrupo4Nn1-uoLdE8Xr6p9HfsTy48nJfO6ArC_W5qO/pub?output=csv";
+
+let notices = [];
+let current = 0;
+
+async function loadNotices() {
+
+    try {
+
+        const response = await fetch(
+            SHEET_URL + "&cache=" + Date.now()
+        );
+
+        const text = await response.text();
+
+        const rows = text.trim().split(/\r?\n/);
+
+        notices = [];
+
+        for (let i = 1; i < rows.length; i++) {
+
+            const columns = rows[i].split(",");
+
+            const notice = columns[0];
+            const date = columns[1];
+            const status = columns[2];
+
+            if (
+                notice &&
+                status &&
+                status.trim().toLowerCase() === "active"
+            ) {
+
+                notices.push({
+                    notice: notice,
+                    date: date
+                });
+
+            }
+        }
+
+        if (notices.length === 0) {
+
+            document.getElementById("notice").innerText =
+                "বর্তমানে কোনো নতুন নোটিশ নেই";
+
+            document.getElementById("date").innerText = "";
+
+            return;
+        }
+
+        current = 0;
+        showNotice();
+
+    } catch (error) {
+
+        document.getElementById("notice").innerText =
+            "Notice load করা যাচ্ছে না";
+
+        document.getElementById("date").innerText =
+            "Internet connection পরীক্ষা করুন";
+
+    }
+}
+
+function showNotice() {
+
+    if (notices.length === 0) return;
+
+    const item = notices[current];
+
+    document.getElementById("notice").innerText =
+        item.notice;
+
+    document.getElementById("date").innerText =
+        "তারিখ: " + item.date;
+}
+
+setInterval(function() {
+
+    if (notices.length > 0) {
+
+        current++;
+
+        if (current >= notices.length) {
+            current = 0;
+        }
+
+        showNotice();
+    }
+
+}, 10000);
+
+setInterval(loadNotices, 30000);
+
+loadNotices();
+
+</script>
+
+</body>
+</html>
