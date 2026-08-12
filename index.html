@@ -195,8 +195,6 @@ function showNotice() {
         "তারিখ: " + item.date;
 }
 
-
-/* প্রতি 10 সেকেন্ডে পরের notice */
 setInterval(function() {
 
     if (notices.length > 1) {
@@ -212,14 +210,10 @@ setInterval(function() {
 
 }, 10000);
 
-
-/* প্রতি 30 সেকেন্ডে Google Sheet থেকে নতুন notice check */
 setInterval(function() {
     loadNotices();
 }, 30000);
 
-
-/* প্রথমবার load */
 loadNotices();
 
 </script>
