@@ -15,7 +15,7 @@ box-sizing:border-box;
 body{
 font-family:Arial,sans-serif;
 min-height:100vh;
-background:linear-gradient(180deg,#065f46 0%, #00112b 25%, #000814 100%);
+background:linear-gradient(180deg,#065f46 0%,#00112b 25%,#000814 100%);
 color:white;
 display:flex;
 flex-direction:column;
@@ -43,7 +43,7 @@ object-fit:contain;
 background:white;
 border-radius:50%;
 padding:4px;
-box-shadow:0 0 14px rgba(255,255,255,0.45);
+box-shadow:0 0 14px rgba(255,255,255,.45);
 }
 
 .college-text{
@@ -74,12 +74,12 @@ padding:18px;
 .notice-card{
 width:96%;
 max-width:1300px;
-background:rgba(0,10,40,0.92);
-border:2px solid rgba(255,255,255,0.14);
+background:rgba(0,10,40,.92);
+border:2px solid rgba(255,255,255,.14);
 border-radius:28px;
-padding:28px 34px 34px;
+padding:25px 34px 34px;
 text-align:center;
-box-shadow:0 0 36px rgba(0,0,0,0.5);
+box-shadow:0 0 36px rgba(0,0,0,.5);
 }
 
 .badge{
@@ -90,44 +90,47 @@ font-weight:800;
 font-size:28px;
 padding:14px 34px;
 border-radius:999px;
-margin-bottom:18px;
-box-shadow:0 0 20px rgba(250,204,21,0.45);
+margin-bottom:12px;
+box-shadow:0 0 20px rgba(250,204,21,.45);
 }
 
+/* Heading */
 #notice-heading{
 font-size:52px;
 font-weight:800;
 color:#facc15;
-margin-top:-4px;
-margin-bottom:16px;
-line-height:1.2;
-text-shadow:0 2px 10px rgba(0,0,0,0.5);
+margin:0 auto 14px;
+line-height:1.18;
+text-shadow:0 2px 10px rgba(0,0,0,.5);
+max-width:1150px;
 }
 
+/* Paragraph */
 #notice{
 font-size:30px;
-line-height:1.8;
+line-height:1.7;
 font-weight:600;
 text-align:center;
-background:rgba(255,255,255,0.06);
-border:2px solid rgba(255,255,255,0.16);
+background:rgba(255,255,255,.06);
+border:2px solid rgba(255,255,255,.16);
 border-radius:22px;
-padding:26px 34px;
-max-width:980px;
-margin:0 auto 22px auto;
+padding:25px 34px;
+max-width:1050px;
+margin:0 auto 20px;
 color:#f8fafc;
-box-shadow:inset 0 0 12px rgba(255,255,255,0.04);
-min-height:170px;
+min-height:160px;
 display:flex;
 align-items:center;
 justify-content:center;
+box-shadow:inset 0 0 12px rgba(255,255,255,.04);
 }
 
+/* Date */
 #date{
-font-size:28px;
+font-size:27px;
 color:#d9f99d;
 font-weight:700;
-margin-top:6px;
+margin-top:5px;
 }
 
 .footer{
@@ -151,7 +154,8 @@ border-top:2px solid #d4af37;
 letter-spacing:.5px;
 }
 
-@media (max-width:768px){
+/* Mobile */
+@media(max-width:768px){
 
 body{
 overflow:auto;
@@ -182,12 +186,12 @@ padding:20px 16px 28px;
 .badge{
 font-size:20px;
 padding:10px 22px;
-margin-bottom:14px;
+margin-bottom:12px;
 }
 
 #notice-heading{
 font-size:30px;
-margin-bottom:12px;
+margin-bottom:10px;
 }
 
 #notice{
@@ -218,134 +222,441 @@ font-size:18px;
 <body>
 
 <div class="header">
-  <div class="college-top">
-    <img src="logo.png" alt="College Logo" class="college-logo">
 
-    <div class="college-text">
-      <h1>Hazrat Shah Ali Mohila College</h1>
-      <h2>DIGITAL NOTICE BOARD</h2>
-    </div>
-  </div>
+<div class="college-top">
+
+<img src="logo.png"
+alt="College Logo"
+class="college-logo">
+
+<div class="college-text">
+
+<h1>Hazrat Shah Ali Mohila College</h1>
+
+<h2>DIGITAL NOTICE BOARD</h2>
+
 </div>
+
+</div>
+
+</div>
+
 
 <div class="notice-box">
-  <div class="notice-card">
 
-    <div class="badge">📢 NOTICE</div>
+<div class="notice-card">
 
-    <div id="notice-heading">লোড হচ্ছে...</div>
+<div class="badge">📢 NOTICE</div>
 
-    <div id="notice"></div>
+<div id="notice-heading">লোড হচ্ছে...</div>
 
-    <div id="date"></div>
+<div id="notice"></div>
 
-  </div>
+<div id="date"></div>
+
 </div>
+
+</div>
+
 
 <div class="footer">
-  <div>🕒 <span id="clock">--:--:--</span></div>
-  <div>Hazrat Shah Ali Mohila College</div>
-  <div>📅 <span id="today">--</span></div>
+
+<div>
+🕒 <span id="clock">--:--:--</span>
 </div>
+
+<div>
+Hazrat Shah Ali Mohila College
+</div>
+
+<div>
+📅 <span id="today">--</span>
+</div>
+
+</div>
+
 
 <div class="bottom">
-  শিক্ষাই আলো, শিক্ষাই শক্তি ❤️
+শিক্ষাই আলো, শিক্ষাই শক্তি ❤️
 </div>
 
-<script>
-const API_URL='https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
 
-let notices=[];
-let current=0;
+<script>
+
+const API_URL =
+'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
+
+
+let notices = [];
+let current = 0;
+let noticeTimer = null;
+
+
+/* =========================
+   LOAD NOTICE
+========================= */
 
 function loadNotices(){
 
-const callbackName='showNotices';
+const callbackName = 'showNotices';
 
-window[callbackName]=function(data){
+window[callbackName] = function(data){
 
-notices=data||[];
+notices = Array.isArray(data) ? data : [];
 
-if(notices.length===0){
+if(notices.length === 0){
 
-document.getElementById('notice-heading').innerText='নোটিশ নেই';
+document.getElementById('notice-heading').innerText =
+'নোটিশ নেই';
 
-document.getElementById('notice').innerText='বর্তমানে কোনো নতুন নোটিশ নেই';
+document.getElementById('notice').innerText =
+'বর্তমানে কোনো নতুন নোটিশ নেই';
 
-document.getElementById('date').innerText='';
+document.getElementById('date').innerText = '';
 
 return;
 }
 
-current=0;
+current = 0;
 
 showNotice();
+
 };
 
-const oldScript=document.getElementById('noticeScript');
 
-if(oldScript) oldScript.remove();
+const oldScript =
+document.getElementById('noticeScript');
 
-const script=document.createElement('script');
+if(oldScript){
+oldScript.remove();
+}
 
-script.id='noticeScript';
 
-script.src=API_URL+'?callback='+callbackName+'&t='+Date.now();
+const script =
+document.createElement('script');
+
+script.id = 'noticeScript';
+
+script.src =
+API_URL +
+'?callback=' +
+callbackName +
+'&t=' +
+Date.now();
+
+
+script.onerror = function(){
+
+document.getElementById('notice-heading').innerText =
+'সংযোগ সমস্যা';
+
+document.getElementById('notice').innerText =
+'নোটিশ লোড করা যাচ্ছে না';
+
+document.getElementById('date').innerText =
+'ইন্টারনেট সংযোগ পরীক্ষা করুন';
+
+};
+
 
 document.body.appendChild(script);
+
 }
+
+
+/* =========================
+   AUTO HEADING SIZE
+========================= */
+
+function adjustHeadingSize(){
+
+const heading =
+document.getElementById('notice-heading');
+
+const length =
+heading.innerText.trim().length;
+
+
+/*
+ছোট heading = বড় font
+বড় heading = ছোট font
+*/
+
+if(length <= 20){
+
+heading.style.fontSize =
+'52px';
+
+}
+
+else if(length <= 35){
+
+heading.style.fontSize =
+'46px';
+
+}
+
+else if(length <= 50){
+
+heading.style.fontSize =
+'40px';
+
+}
+
+else if(length <= 70){
+
+heading.style.fontSize =
+'34px';
+
+}
+
+else{
+
+heading.style.fontSize =
+'30px';
+
+}
+
+}
+
+
+/* =========================
+   SHOW NOTICE
+========================= */
 
 function showNotice(){
 
-const item=notices[current];
+if(notices.length === 0){
+return;
+}
 
-document.getElementById('notice-heading').innerText=item.heading||'';
 
-document.getElementById('notice').innerText=item.notice||'';
+const item =
+notices[current];
 
-const d=new Date(item.date);
 
-document.getElementById('date').innerText=
-'📅 তারিখ: '+
+/* Heading */
+
+const heading =
+document.getElementById('notice-heading');
+
+heading.innerText =
+item.heading || '';
+
+adjustHeadingSize();
+
+
+/* Paragraph */
+
+const paragraph =
+document.getElementById('notice');
+
+paragraph.innerText =
+item.notice || '';
+
+
+/* Date */
+
+const dateElement =
+document.getElementById('date');
+
+
+if(item.date){
+
+const d =
+new Date(item.date);
+
+
+if(!isNaN(d.getTime())){
+
+dateElement.innerText =
+'📅 তারিখ: ' +
 d.toLocaleDateString('bn-BD',{
 day:'numeric',
 month:'long',
 year:'numeric'
 });
+
 }
 
-setInterval(function(){
+else{
 
-if(notices.length>1){
+dateElement.innerText =
+'📅 তারিখ: ' +
+item.date;
 
-current=(current+1)%notices.length;
+}
+
+}
+
+else{
+
+dateElement.innerText = '';
+
+}
+
+
+/* =========================
+   AUTOMATIC READING TIME
+========================= */
+
+const text =
+(item.notice || '').trim();
+
+
+const characters =
+text.length;
+
+
+/*
+Reading time:
+
+ছোট notice → 5 sec
+
+মাঝারি → 8-15 sec
+
+বড় → বেশি সময়
+
+Maximum → 30 sec
+*/
+
+let seconds;
+
+
+if(characters <= 80){
+
+seconds = 5;
+
+}
+
+else if(characters <= 160){
+
+seconds = 8;
+
+}
+
+else if(characters <= 250){
+
+seconds = 12;
+
+}
+
+else if(characters <= 350){
+
+seconds = 16;
+
+}
+
+else if(characters <= 500){
+
+seconds = 20;
+
+}
+
+else if(characters <= 700){
+
+seconds = 25;
+
+}
+
+else{
+
+seconds = 30;
+
+}
+
+
+/* পুরোনো timer বন্ধ */
+
+if(noticeTimer){
+
+clearTimeout(noticeTimer);
+
+}
+
+
+/* নতুন notice দেখানোর timer */
+
+noticeTimer = setTimeout(function(){
+
+if(notices.length > 1){
+
+current++;
+
+if(current >= notices.length){
+
+current = 0;
+
+}
 
 showNotice();
+
 }
 
-},10000);
+},seconds * 1000);
+
+}
+
+
+/* =========================
+   CLOCK
+========================= */
 
 function updateClock(){
 
-const now=new Date();
+const now =
+new Date();
 
-document.getElementById('clock').innerText=
-now.toLocaleTimeString('bn-BD',{hour12:true});
 
-document.getElementById('today').innerText=
-now.toLocaleDateString('bn-BD',{
+document.getElementById('clock').innerText =
+now.toLocaleTimeString(
+'bn-BD',
+{
+hour12:true
+}
+);
+
+
+document.getElementById('today').innerText =
+now.toLocaleDateString(
+'bn-BD',
+{
 weekday:'long',
 day:'numeric',
 month:'long',
 year:'numeric'
-});
+}
+);
+
 }
 
-setInterval(updateClock,1000);
+
+setInterval(
+updateClock,
+1000
+);
+
 
 updateClock();
 
+
+/* =========================
+   FIRST LOAD
+========================= */
+
 loadNotices();
+
+
+/* =========================
+   NEW DATA CHECK
+   প্রতি 30 সেকেন্ডে
+========================= */
+
+setInterval(
+loadNotices,
+30000
+);
+
 </script>
 
 </body>
