@@ -1,367 +1,781 @@
- 
-
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>Hazrat Shah Ali Mohila College</title>
 
+
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
+
+/* =========================
+   HTML / BODY
+========================= */
+
+html,
 body{
-font-family:Arial,sans-serif;
-min-height:150vh;
-background:linear-gradient(180deg,#065f46 0%,#00112b 25%,#000814 100%);
-color:white;
-display:flex;
-flex-direction:column;
-overflow:hidden;
+    width:100%;
+    height:100%;
 }
+
+
+body{
+
+    font-family:
+    Arial,
+    "Noto Sans Bengali",
+    sans-serif;
+
+    width:100%;
+    height:100vh;
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        180deg,
+        #065f46 0%,
+        #00112b 25%,
+        #000814 100%
+    );
+
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
 
 .header{
-background:linear-gradient(90deg,#065f46,#047857,#065f46);
-padding:18px 10px;
-border-bottom:3px solid #d4af37;
+
+    flex:0 0 auto;
+
+    background:
+    linear-gradient(
+        90deg,
+        #065f46,
+        #047857,
+        #065f46
+    );
+
+    padding:14px 10px;
+
+    border-bottom:
+    3px solid #d4af37;
 }
 
+
+/* =========================
+   COLLEGE TOP
+========================= */
+
 .college-top{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:20px;
-flex-wrap:wrap;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:18px;
 }
+
+
+/* =========================
+   LOGO
+========================= */
 
 .college-logo{
-width:95px;
-height:95px;
-object-fit:contain;
-background:white;
-border-radius:50%;
-padding:4px;
-box-shadow:0 0 14px rgba(255,255,255,.45);
+
+    width:90px;
+    height:90px;
+
+    object-fit:contain;
+
+    background:white;
+
+    border-radius:50%;
+
+    padding:4px;
+
+    box-shadow:
+    0 0 14px
+    rgba(255,255,255,.45);
 }
+
+
+/* =========================
+   COLLEGE TEXT
+========================= */
 
 .college-text{
-text-align:left;
+
+    text-align:left;
 }
+
 
 .college-text h1{
-font-size:48px;
-font-weight:800;
-line-height:1.05;
+
+    font-size:44px;
+
+    font-weight:800;
+
+    line-height:1.05;
 }
 
+
 .college-text h2{
-font-size:20px;
-letter-spacing:5px;
-margin-top:8px;
-font-weight:700;
+
+    font-size:19px;
+
+    letter-spacing:5px;
+
+    margin-top:7px;
+
+    font-weight:700;
 }
+
+
+/* =========================
+   NOTICE AREA
+========================= */
 
 .notice-box{
-flex:1;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:18px;
+
+    flex:1;
+
+    min-height:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:14px 20px;
 }
+
+
+/* =========================
+   NOTICE CARD
+========================= */
 
 .notice-card{
-width:96%;
-max-width:1300px;
-background:rgba(0,10,40,.92);
-border:2px solid rgba(255,255,255,.14);
-border-radius:28px;
-padding:25px 34px 34px;
-text-align:center;
-box-shadow:0 0 36px rgba(0,0,0,.5);
+
+    width:96%;
+
+    max-width:1500px;
+
+    background:
+    rgba(0,10,40,.92);
+
+    border:
+    2px solid
+    rgba(255,255,255,.14);
+
+    border-radius:26px;
+
+    padding:
+    22px 32px 26px;
+
+    text-align:center;
+
+    box-shadow:
+    0 0 36px
+    rgba(0,0,0,.5);
 }
+
+
+/* =========================
+   NOTICE BADGE
+========================= */
 
 .badge{
-display:inline-block;
-background:linear-gradient(90deg,#f59e0b,#facc15);
-color:#111827;
-font-weight:800;
-font-size:28px;
-padding:14px 34px;
-border-radius:999px;
-margin-bottom:12px;
-box-shadow:0 0 20px rgba(250,204,21,.45);
+
+    display:inline-block;
+
+    background:
+    linear-gradient(
+        90deg,
+        #f59e0b,
+        #facc15
+    );
+
+    color:#111827;
+
+    font-weight:800;
+
+    font-size:25px;
+
+    padding:
+    10px 30px;
+
+    border-radius:999px;
+
+    margin-bottom:10px;
+
+    box-shadow:
+    0 0 20px
+    rgba(250,204,21,.45);
 }
 
-/* Heading */
+
+/* =========================
+   NOTICE HEADING
+========================= */
+
 #notice-heading{
-font-size:52px;
-font-weight:800;
-color:#facc15;
-margin:0 auto 14px;
-line-height:1.18;
-text-shadow:0 2px 10px rgba(0,0,0,.5);
-max-width:1150px;
+
+    font-size:50px;
+
+    font-weight:800;
+
+    color:#facc15;
+
+    margin:
+    0 auto 12px;
+
+    line-height:1.15;
+
+    text-shadow:
+    0 2px 10px
+    rgba(0,0,0,.5);
+
+    max-width:1300px;
 }
 
-/* Paragraph */
+
+/* =========================
+   NOTICE TEXT
+========================= */
+
 #notice{
-font-size:30px;
-line-height:1.7;
-font-weight:600;
-text-align:center;
-background:rgba(255,255,255,.06);
-border:2px solid rgba(255,255,255,.16);
-border-radius:22px;
-padding:25px 34px;
-max-width:1050px;
-margin:0 auto 20px;
-color:#f8fafc;
-min-height:160px;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:inset 0 0 12px rgba(255,255,255,.04);
+
+    font-size:28px;
+
+    line-height:1.55;
+
+    font-weight:600;
+
+    text-align:center;
+
+    background:
+    rgba(255,255,255,.06);
+
+    border:
+    2px solid
+    rgba(255,255,255,.16);
+
+    border-radius:20px;
+
+    padding:
+    22px 30px;
+
+    max-width:1250px;
+
+    margin:
+    0 auto 15px;
+
+    color:#f8fafc;
+
+    min-height:145px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:
+    inset 0 0 12px
+    rgba(255,255,255,.04);
 }
 
-/* Date */
+
+/* =========================
+   NOTICE DATE
+========================= */
+
 #date{
-font-size:27px;
-color:#d9f99d;
-font-weight:700;
-margin-top:5px;
+
+    font-size:23px;
+
+    color:#d9f99d;
+
+    font-weight:700;
+
+    margin-top:3px;
 }
+
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
-background:#00112b;
-border-top:2px solid #d4af37;
-padding:14px 22px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-size:20px;
-font-weight:600;
+
+    flex:0 0 auto;
+
+    background:#00112b;
+
+    border-top:
+    2px solid #d4af37;
+
+    padding:
+    11px 25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:20px;
+
+    font-weight:600;
 }
+
+
+/* =========================
+   BOTTOM
+========================= */
 
 .bottom{
-background:#065f46;
-padding:12px;
-text-align:center;
-font-size:24px;
-font-weight:700;
-border-top:2px solid #d4af37;
-letter-spacing:.5px;
+
+    flex:0 0 auto;
+
+    background:#065f46;
+
+    padding:10px;
+
+    text-align:center;
+
+    font-size:23px;
+
+    font-weight:700;
+
+    border-top:
+    2px solid #d4af37;
+
+    letter-spacing:.5px;
 }
 
-/* Mobile */
+
+/* =========================
+   FULL HD 1920 × 1080
+========================= */
+
+@media
+(min-width:1600px)
+and
+(min-height:900px){
+
+    .header{
+        padding:13px 10px;
+    }
+
+    .college-logo{
+        width:88px;
+        height:88px;
+    }
+
+    .college-text h1{
+        font-size:44px;
+    }
+
+    .college-text h2{
+        font-size:19px;
+    }
+
+    .notice-box{
+        padding:12px 20px;
+    }
+
+    .notice-card{
+        max-width:1550px;
+
+        padding:
+        20px 32px 24px;
+    }
+
+    .badge{
+        font-size:26px;
+
+        padding:
+        10px 32px;
+    }
+
+    #notice-heading{
+        font-size:50px;
+    }
+
+    #notice{
+        font-size:28px;
+
+        min-height:145px;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:768px){
 
-body{
-overflow:auto;
+    body{
+        overflow:auto;
+        height:auto;
+        min-height:100vh;
+    }
+
+    .header{
+        padding:14px 10px;
+    }
+
+    .college-top{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .college-text{
+        text-align:center;
+    }
+
+    .college-logo{
+        width:80px;
+        height:80px;
+    }
+
+    .college-text h1{
+        font-size:32px;
+    }
+
+    .college-text h2{
+        font-size:15px;
+        letter-spacing:3px;
+    }
+
+    .notice-box{
+        padding:15px;
+    }
+
+    .notice-card{
+        width:100%;
+
+        padding:
+        20px 16px 28px;
+
+        border-radius:20px;
+    }
+
+    .badge{
+        font-size:20px;
+
+        padding:
+        10px 22px;
+
+        margin-bottom:12px;
+    }
+
+    #notice-heading{
+        font-size:30px;
+        margin-bottom:10px;
+    }
+
+    #notice{
+        font-size:20px;
+        line-height:1.7;
+        padding:18px;
+        min-height:120px;
+    }
+
+    #date{
+        font-size:20px;
+    }
+
+    .footer{
+        flex-direction:column;
+
+        gap:8px;
+
+        font-size:16px;
+
+        text-align:center;
+
+        padding:10px;
+    }
+
+    .bottom{
+        font-size:18px;
+    }
+
 }
 
-.college-top{
-flex-direction:column;
-gap:10px;
-}
-
-.college-text{
-text-align:center;
-}
-
-.college-text h1{
-font-size:32px;
-}
-
-.college-text h2{
-font-size:15px;
-letter-spacing:3px;
-}
-
-.notice-card{
-padding:20px 16px 28px;
-}
-
-.badge{
-font-size:20px;
-padding:10px 22px;
-margin-bottom:12px;
-}
-
-#notice-heading{
-font-size:30px;
-margin-bottom:10px;
-}
-
-#notice{
-font-size:20px;
-line-height:1.7;
-padding:18px;
-min-height:120px;
-}
-
-#date{
-font-size:20px;
-}
-
-.footer{
-flex-direction:column;
-gap:8px;
-font-size:16px;
-text-align:center;
-}
-
-.bottom{
-font-size:18px;
-}
-}
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <div class="header">
 
-<div class="college-top">
+    <div class="college-top">
 
-<img src="logo.jpg"
-alt="College Logo"
-class="college-logo">
+        <img
+            src="logo.jpg"
+            alt="College Logo"
+            class="college-logo"
+        >
 
-<div class="college-text">
+        <div class="college-text">
 
-<h1>Hazrat Shah Ali Mohila College</h1>
+            <h1>
+                Hazrat Shah Ali Mohila College
+            </h1>
 
-<h2>Mirpur-1, Dhaka, Bangladesh</h2>
+            <h2>
+                Mirpur-1, Dhaka, Bangladesh
+            </h2>
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
 
-</div>
 
+<!-- =========================
+     NOTICE AREA
+========================= -->
 
 <div class="notice-box">
 
-<div class="notice-card">
+    <div class="notice-card">
 
-<div class="badge">📢 NOTICE</div>
+        <div class="badge">
+            📢 NOTICE
+        </div>
 
-<div id="notice-heading">লোড হচ্ছে...</div>
+        <div id="notice-heading">
+            লোড হচ্ছে...
+        </div>
 
-<div id="notice"></div>
+        <div id="notice">
+        </div>
 
-<div id="date"></div>
+        <div id="date">
+        </div>
+
+    </div>
 
 </div>
 
-</div>
 
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <div class="footer">
 
-<div>
-🕒 <span id="clock">--:--:--</span>
+    <div>
+        🕒
+        <span id="clock">
+            --:--:--
+        </span>
+    </div>
+
+    <div>
+        Hazrat Shah Ali Mohila College
+    </div>
+
+    <div>
+        📅
+        <span id="today">
+            --
+        </span>
+    </div>
+
 </div>
 
-<div>
-Hazrat Shah Ali Mohila College
-</div>
 
-<div>
-📅 <span id="today">--</span>
-</div>
 
-</div>
-
+<!-- =========================
+     BOTTOM
+========================= -->
 
 <div class="bottom">
-শিক্ষাই আলো, শিক্ষাই শক্তি
+
+    শিক্ষাই আলো, শিক্ষাই শক্তি
+
 </div>
+
 
 
 <script>
+
+/* =========================
+   GOOGLE SHEET API
+========================= */
 
 const API_URL =
 'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
 
 
+/* =========================
+   VARIABLES
+========================= */
+
 let notices = [];
+
 let current = 0;
+
 let noticeTimer = null;
 
 
 /* =========================
-   LOAD NOTICE
+   LOAD NOTICES
 ========================= */
 
 function loadNotices(){
 
-const callbackName = 'showNotices';
-
-window[callbackName] = function(data){
-
-notices = Array.isArray(data) ? data : [];
-
-if(notices.length === 0){
-
-document.getElementById('notice-heading').innerText =
-'নোটিশ নেই';
-
-document.getElementById('notice').innerText =
-'বর্তমানে কোনো নতুন নোটিশ নেই';
-
-document.getElementById('date').innerText = '';
-
-return;
-}
-
-current = 0;
-
-showNotice();
-
-};
+    const callbackName = 'showNotices';
 
 
-const oldScript =
-document.getElementById('noticeScript');
+    window[callbackName] = function(data){
 
-if(oldScript){
-oldScript.remove();
-}
-
-
-const script =
-document.createElement('script');
-
-script.id = 'noticeScript';
-
-script.src =
-API_URL +
-'?callback=' +
-callbackName +
-'&t=' +
-Date.now();
+        notices =
+        Array.isArray(data)
+        ? data
+        : [];
 
 
-script.onerror = function(){
+        /* =====================
+           NO NOTICE
+        ===================== */
 
-document.getElementById('notice-heading').innerText =
-'সংযোগ সমস্যা';
+        if(notices.length === 0){
 
-document.getElementById('notice').innerText =
-'নোটিশ লোড করা যাচ্ছে না';
-
-document.getElementById('date').innerText =
-'ইন্টারনেট সংযোগ পরীক্ষা করুন';
-
-};
+            document
+            .getElementById('notice-heading')
+            .innerText =
+            'নোটিশ নেই';
 
 
-document.body.appendChild(script);
+            document
+            .getElementById('notice')
+            .innerText =
+            'বর্তমানে কোনো নতুন নোটিশ নেই';
+
+
+            document
+            .getElementById('date')
+            .innerText =
+            '';
+
+            return;
+        }
+
+
+        current = 0;
+
+        showNotice();
+
+    };
+
+
+    /* =====================
+       REMOVE OLD SCRIPT
+    ===================== */
+
+    const oldScript =
+    document.getElementById('noticeScript');
+
+
+    if(oldScript){
+        oldScript.remove();
+    }
+
+
+    /* =====================
+       CREATE NEW SCRIPT
+    ===================== */
+
+    const script =
+    document.createElement('script');
+
+
+    script.id =
+    'noticeScript';
+
+
+    script.src =
+    API_URL +
+    '?callback=' +
+    callbackName +
+    '&t=' +
+    Date.now();
+
+
+    /* =====================
+       ERROR
+    ===================== */
+
+    script.onerror = function(){
+
+        document
+        .getElementById('notice-heading')
+        .innerText =
+        'সংযোগ সমস্যা';
+
+
+        document
+        .getElementById('notice')
+        .innerText =
+        'নোটিশ লোড করা যাচ্ছে না';
+
+
+        document
+        .getElementById('date')
+        .innerText =
+        'ইন্টারনেট সংযোগ পরীক্ষা করুন';
+
+    };
+
+
+    document
+    .body
+    .appendChild(script);
 
 }
 
@@ -372,52 +786,52 @@ document.body.appendChild(script);
 
 function adjustHeadingSize(){
 
-const heading =
-document.getElementById('notice-heading');
+    const heading =
+    document.getElementById(
+        'notice-heading'
+    );
 
-const length =
-heading.innerText.trim().length;
+
+    const length =
+    heading.innerText
+    .trim()
+    .length;
 
 
-/*
-ছোট heading = বড় font
-বড় heading = ছোট font
-*/
+    if(length <= 20){
 
-if(length <= 20){
+        heading.style.fontSize =
+        '50px';
 
-heading.style.fontSize =
-'52px';
+    }
 
-}
+    else if(length <= 35){
 
-else if(length <= 35){
+        heading.style.fontSize =
+        '45px';
 
-heading.style.fontSize =
-'46px';
+    }
 
-}
+    else if(length <= 50){
 
-else if(length <= 50){
+        heading.style.fontSize =
+        '40px';
 
-heading.style.fontSize =
-'40px';
+    }
 
-}
+    else if(length <= 70){
 
-else if(length <= 70){
+        heading.style.fontSize =
+        '35px';
 
-heading.style.fontSize =
-'34px';
+    }
 
-}
+    else{
 
-else{
+        heading.style.fontSize =
+        '30px';
 
-heading.style.fontSize =
-'30px';
-
-}
+    }
 
 }
 
@@ -428,174 +842,197 @@ heading.style.fontSize =
 
 function showNotice(){
 
-if(notices.length === 0){
-return;
-}
+    if(notices.length === 0){
+        return;
+    }
 
 
-const item =
-notices[current];
+    const item =
+    notices[current];
 
 
-/* Heading */
+    /* =====================
+       HEADING
+    ===================== */
 
-const heading =
-document.getElementById('notice-heading');
+    const heading =
+    document.getElementById(
+        'notice-heading'
+    );
 
-heading.innerText =
-item.heading || '';
 
-adjustHeadingSize();
+    heading.innerText =
+    item.heading || '';
 
 
-/* Paragraph */
+    adjustHeadingSize();
 
-const paragraph =
-document.getElementById('notice');
 
-paragraph.innerText =
-item.notice || '';
+    /* =====================
+       NOTICE TEXT
+    ===================== */
 
+    const paragraph =
+    document.getElementById(
+        'notice'
+    );
 
-/* Date */
 
-const dateElement =
-document.getElementById('date');
+    paragraph.innerText =
+    item.notice || '';
 
 
-if(item.date){
+    /* =====================
+       DATE
+    ===================== */
 
-const d =
-new Date(item.date);
+    const dateElement =
+    document.getElementById(
+        'date'
+    );
 
 
-if(!isNaN(d.getTime())){
+    if(item.date){
 
-dateElement.innerText =
-'📅 তারিখ: ' +
-d.toLocaleDateString('bn-BD',{
-day:'numeric',
-month:'long',
-year:'numeric'
-});
+        const d =
+        new Date(item.date);
 
-}
 
-else{
+        if(!isNaN(d.getTime())){
 
-dateElement.innerText =
-'📅 তারিখ: ' +
-item.date;
+            dateElement.innerText =
+            '📅 তারিখ: ' +
 
-}
+            d.toLocaleDateString(
+                'bn-BD',
+                {
+                    day:'numeric',
+                    month:'long',
+                    year:'numeric'
+                }
+            );
 
-}
+        }
 
-else{
+        else{
 
-dateElement.innerText = '';
+            dateElement.innerText =
+            '📅 তারিখ: ' +
+            item.date;
 
-}
+        }
 
+    }
 
-/* =========================
-   AUTOMATIC READING TIME
-========================= */
+    else{
 
-const text =
-(item.notice || '').trim();
+        dateElement.innerText =
+        '';
 
+    }
 
-const characters =
-text.length;
 
+    /* =========================
+       AUTOMATIC READING TIME
+    ========================= */
 
-/*
-Reading time:
+    const text =
+    (item.notice || '').trim();
 
-ছোট notice → 5 sec
 
-মাঝারি → 8-20 sec
+    const characters =
+    text.length;
 
-বড় → বেশি সময়
 
-Maximum → 60 sec
-*/
+    let seconds;
 
-let seconds;
 
+    if(characters <= 80){
 
-if(characters <= 80){
+        seconds = 5;
 
-seconds = 5;
+    }
 
-}
+    else if(characters <= 160){
 
-else if(characters <= 160){
+        seconds = 8;
 
-seconds = 8;
+    }
 
-}
+    else if(characters <= 250){
 
-else if(characters <= 250){
+        seconds = 12;
 
-seconds = 12;
+    }
 
-}
+    else if(characters <= 350){
 
-else if(characters <= 350){
+        seconds = 16;
 
-seconds = 16;
+    }
 
-}
+    else if(characters <= 500){
 
-else if(characters <= 500){
+        seconds = 20;
 
-seconds = 20;
+    }
 
-}
+    else if(characters <= 700){
 
-else if(characters <= 700){
+        seconds = 25;
 
-seconds = 25;
+    }
 
-}
+    else{
 
-else{
+        seconds = 30;
 
-seconds = 30;
+    }
 
-}
 
+    /* =========================
+       CLEAR OLD TIMER
+    ========================= */
 
-/* পুরোনো timer বন্ধ */
+    if(noticeTimer){
 
-if(noticeTimer){
+        clearTimeout(
+            noticeTimer
+        );
 
-clearTimeout(noticeTimer);
+    }
 
-}
 
+    /* =========================
+       NEXT NOTICE
+    ========================= */
 
-/* নতুন notice দেখানোর timer */
+    noticeTimer =
+    setTimeout(
+        function(){
 
-noticeTimer = setTimeout(function(){
+            if(notices.length > 1){
 
-if(notices.length > 1){
+                current++;
 
-current++;
 
-if(current >= notices.length){
+                if(
+                    current >=
+                    notices.length
+                ){
 
-current = 0;
+                    current = 0;
 
-}
+                }
 
-showNotice();
 
-}
+                showNotice();
 
-},seconds * 1000);
+            }
+
+        },
+        seconds * 1000
+    );
 
 }
 
@@ -606,38 +1043,55 @@ showNotice();
 
 function updateClock(){
 
-const now =
-new Date();
+    const now =
+    new Date();
 
 
-document.getElementById('clock').innerText =
-now.toLocaleTimeString(
-'bn-BD',
-{
-hour12:true
+    /* =====================
+       TIME
+    ===================== */
+
+    document
+    .getElementById('clock')
+    .innerText =
+
+    now.toLocaleTimeString(
+        'bn-BD',
+        {
+            hour12:true
+        }
+    );
+
+
+    /* =====================
+       TODAY
+    ===================== */
+
+    document
+    .getElementById('today')
+    .innerText =
+
+    now.toLocaleDateString(
+        'bn-BD',
+        {
+            weekday:'long',
+            day:'numeric',
+            month:'long',
+            year:'numeric'
+        }
+    );
+
 }
-);
 
 
-document.getElementById('today').innerText =
-now.toLocaleDateString(
-'bn-BD',
-{
-weekday:'long',
-day:'numeric',
-month:'long',
-year:'numeric'
-}
-);
-
-}
-
+/* =========================
+   START CLOCK
+========================= */
 
 setInterval(
-updateClock,
-1000
+    updateClock,
+    1000
 );
-
 
 updateClock();
 
@@ -650,16 +1104,18 @@ loadNotices();
 
 
 /* =========================
-   NEW DATA CHECK
-   প্রতি 30 সেকেন্ডে
+   CHECK NEW NOTICE
+   EVERY 30 SECONDS
 ========================= */
 
 setInterval(
-loadNotices,
-30000
+    loadNotices,
+    30000
 );
 
 </script>
 
+
 </body>
+
 </html>
