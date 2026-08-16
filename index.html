@@ -1,323 +1,949 @@
- 
-
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Hazrat Shah Ali Mohila College</title>
 
+
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 }
 
+
+/* =========================
+   BODY
+========================= */
+
 body{
+
 font-family:Arial,sans-serif;
+
 min-height:150vh;
-background:linear-gradient(180deg,#065f46 0%,#00112b 25%,#000814 100%);
+
+background:
+linear-gradient(
+180deg,
+#065f46 0%,
+#00112b 25%,
+#000814 100%
+);
+
 color:white;
+
 display:flex;
+
 flex-direction:column;
+
 overflow:hidden;
+
 }
+
+
+/* =========================
+   HEADER
+========================= */
 
 .header{
-background:linear-gradient(90deg,#065f46,#047857,#065f46);
+
+background:
+linear-gradient(
+90deg,
+#065f46,
+#047857,
+#065f46
+);
+
 padding:18px 10px;
+
 border-bottom:3px solid #d4af37;
+
 }
+
 
 .college-top{
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
 gap:20px;
+
 flex-wrap:wrap;
+
 }
+
 
 .college-logo{
+
 width:95px;
+
 height:95px;
+
 object-fit:contain;
+
 background:white;
+
 border-radius:50%;
+
 padding:4px;
-box-shadow:0 0 14px rgba(255,255,255,.45);
+
+box-shadow:
+0 0 14px rgba(255,255,255,.45);
+
 }
+
 
 .college-text{
+
 text-align:left;
+
 }
+
 
 .college-text h1{
+
 font-size:48px;
+
 font-weight:800;
+
 line-height:1.05;
+
 }
+
 
 .college-text h2{
+
 font-size:20px;
+
 letter-spacing:5px;
+
 margin-top:8px;
+
 font-weight:700;
+
 }
+
+
+/* =========================
+   NOTICE AREA
+========================= */
 
 .notice-box{
+
 flex:1;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
 padding:18px;
+
 }
+
+
+.notice-layout{
+
+width:96%;
+
+max-width:1500px;
+
+display:flex;
+
+gap:18px;
+
+align-items:stretch;
+
+}
+
+
+/* =========================
+   NOTICE CARD
+========================= */
 
 .notice-card{
-width:96%;
-max-width:1300px;
-background:rgba(0,10,40,.92);
-border:2px solid rgba(255,255,255,.14);
+
+flex:1;
+
+background:
+rgba(0,10,40,.92);
+
+border:
+2px solid rgba(255,255,255,.14);
+
 border-radius:28px;
-padding:25px 34px 34px;
+
+padding:
+25px 34px 34px;
+
 text-align:center;
-box-shadow:0 0 36px rgba(0,0,0,.5);
+
+box-shadow:
+0 0 36px rgba(0,0,0,.5);
+
 }
+
+
+/* =========================
+   NOTICE BADGE
+========================= */
 
 .badge{
+
 display:inline-block;
-background:linear-gradient(90deg,#f59e0b,#facc15);
+
+background:
+linear-gradient(
+90deg,
+#f59e0b,
+#facc15
+);
+
 color:#111827;
+
 font-weight:800;
+
 font-size:28px;
-padding:14px 34px;
+
+padding:
+14px 34px;
+
 border-radius:999px;
+
 margin-bottom:12px;
-box-shadow:0 0 20px rgba(250,204,21,.45);
+
+box-shadow:
+0 0 20px rgba(250,204,21,.45);
+
 }
 
-/* Heading */
+
+/* =========================
+   NOTICE HEADING
+========================= */
+
 #notice-heading{
+
 font-size:52px;
+
 font-weight:800;
+
 color:#facc15;
-margin:0 auto 14px;
+
+margin:
+0 auto 14px;
+
 line-height:1.18;
-text-shadow:0 2px 10px rgba(0,0,0,.5);
+
+text-shadow:
+0 2px 10px rgba(0,0,0,.5);
+
 max-width:1150px;
+
 }
 
-/* Paragraph */
+
+/* =========================
+   NOTICE TEXT
+========================= */
+
 #notice{
+
 font-size:30px;
+
 line-height:1.7;
+
 font-weight:600;
+
 text-align:center;
-background:rgba(255,255,255,.06);
-border:2px solid rgba(255,255,255,.16);
+
+background:
+rgba(255,255,255,.06);
+
+border:
+2px solid rgba(255,255,255,.16);
+
 border-radius:22px;
-padding:25px 34px;
+
+padding:
+25px 34px;
+
 max-width:1050px;
-margin:0 auto 20px;
+
+margin:
+0 auto 20px;
+
 color:#f8fafc;
+
 min-height:160px;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
-box-shadow:inset 0 0 12px rgba(255,255,255,.04);
+
+box-shadow:
+inset 0 0 12px
+rgba(255,255,255,.04);
+
 }
 
-/* Date */
+
+/* =========================
+   DATE
+========================= */
+
 #date{
+
 font-size:27px;
+
 color:#d9f99d;
+
 font-weight:700;
+
 margin-top:5px;
+
 }
+
+
+/* =========================
+   RIGHT PROFILE PANEL
+========================= */
+
+.profile-panel{
+
+width:250px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+
+/* =========================
+   PROFILE CARD
+========================= */
+
+.profile-card{
+
+background:
+rgba(0,10,40,.94);
+
+border:
+2px solid #d4af37;
+
+border-radius:20px;
+
+overflow:hidden;
+
+text-align:center;
+
+box-shadow:
+0 0 20px rgba(0,0,0,.5);
+
+}
+
+
+/* =========================
+   PROFILE IMAGE
+========================= */
+
+.profile-card img{
+
+width:100%;
+
+height:180px;
+
+object-fit:cover;
+
+display:block;
+
+}
+
+
+/* =========================
+   PROFILE INFO
+========================= */
+
+.profile-info{
+
+padding:
+10px 8px 12px;
+
+}
+
+
+.profile-name{
+
+font-size:20px;
+
+font-weight:800;
+
+color:#facc15;
+
+line-height:1.3;
+
+}
+
+
+.profile-title{
+
+font-size:17px;
+
+font-weight:600;
+
+color:white;
+
+margin-top:5px;
+
+line-height:1.4;
+
+}
+
+
+.profile-phone{
+
+font-size:16px;
+
+color:#d9f99d;
+
+margin-top:5px;
+
+font-weight:700;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
+
 background:#00112b;
-border-top:2px solid #d4af37;
-padding:14px 22px;
+
+border-top:
+2px solid #d4af37;
+
+padding:
+14px 22px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 font-size:20px;
+
 font-weight:600;
+
 }
+
+
+/* =========================
+   BOTTOM
+========================= */
 
 .bottom{
+
 background:#065f46;
+
 padding:12px;
+
 text-align:center;
+
 font-size:24px;
+
 font-weight:700;
-border-top:2px solid #d4af37;
+
+border-top:
+2px solid #d4af37;
+
 letter-spacing:.5px;
+
 }
 
-/* Mobile */
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:768px){
 
 body{
+
 overflow:auto;
+
 }
+
 
 .college-top{
+
 flex-direction:column;
+
 gap:10px;
+
 }
+
 
 .college-text{
+
 text-align:center;
+
 }
+
 
 .college-text h1{
+
 font-size:32px;
+
 }
+
 
 .college-text h2{
+
 font-size:15px;
+
 letter-spacing:3px;
+
 }
+
+
+.notice-layout{
+
+flex-direction:column;
+
+}
+
 
 .notice-card{
-padding:20px 16px 28px;
+
+width:100%;
+
+padding:
+20px 16px 28px;
+
 }
+
 
 .badge{
+
 font-size:20px;
-padding:10px 22px;
+
+padding:
+10px 22px;
+
 margin-bottom:12px;
+
 }
+
 
 #notice-heading{
+
 font-size:30px;
+
 margin-bottom:10px;
+
 }
+
 
 #notice{
+
 font-size:20px;
+
 line-height:1.7;
+
 padding:18px;
+
 min-height:120px;
+
 }
+
 
 #date{
+
 font-size:20px;
+
 }
+
+
+.profile-panel{
+
+width:100%;
+
+flex-direction:row;
+
+}
+
+
+.profile-card{
+
+flex:1;
+
+}
+
+
+.profile-card img{
+
+height:150px;
+
+}
+
+
+.profile-name{
+
+font-size:16px;
+
+}
+
+
+.profile-title{
+
+font-size:14px;
+
+}
+
+
+.profile-phone{
+
+font-size:13px;
+
+}
+
 
 .footer{
+
 flex-direction:column;
+
 gap:8px;
+
 font-size:16px;
+
 text-align:center;
+
 }
+
 
 .bottom{
+
 font-size:18px;
+
 }
+
 }
+
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <div class="header">
 
 <div class="college-top">
 
-<img src="logo.jpg"
+
+<img
+src="logo.jpg"
 alt="College Logo"
-class="college-logo">
+class="college-logo"
+>
+
 
 <div class="college-text">
 
-<h1>Hazrat Shah Ali Mohila College</h1>
+<h1>
+Hazrat Shah Ali Mohila College
+</h1>
 
-<h2>Mirpur-1, Dhaka, Bangladesh</h2>
+
+<h2>
+Mirpur-1, Dhaka, Bangladesh
+</h2>
+
+</div>
+
 
 </div>
 
 </div>
 
-</div>
 
+
+<!-- =========================
+     NOTICE AREA
+========================= -->
 
 <div class="notice-box">
 
+<div class="notice-layout">
+
+
+<!-- =========================
+     MAIN NOTICE CARD
+========================= -->
+
 <div class="notice-card">
 
-<div class="badge">📢 NOTICE</div>
 
-<div id="notice-heading">লোড হচ্ছে...</div>
+<div class="badge">
+📢 NOTICE
+</div>
 
-<div id="notice"></div>
 
-<div id="date"></div>
+<div id="notice-heading">
+লোড হচ্ছে...
+</div>
+
+
+<div id="notice">
+</div>
+
+
+<div id="date">
+</div>
+
+
+</div>
+
+
+
+<!-- =========================
+     RIGHT PROFILE PANEL
+========================= -->
+
+<div class="profile-panel">
+
+
+<!-- =========================
+     PRINCIPAL
+========================= -->
+
+<div class="profile-card">
+
+
+<img
+src="principal.jpg.webp"
+alt="অধ্যক্ষ"
+>
+
+
+<div class="profile-info">
+
+
+<div class="profile-name">
+
+জনাব রানা ফেরদৌস রত্না
+
+</div>
+
+
+<div class="profile-title">
+
+অধ্যক্ষ
+
+</div>
+
+
+<div class="profile-phone">
+
+📞 01711-676319
+
+</div>
+
 
 </div>
 
 </div>
 
+
+
+<!-- =========================
+     CHAIRMAN
+========================= -->
+
+<div class="profile-card">
+
+
+<img
+src="chairman.jpg.webp"
+alt="পরিচালক পরিষদের সভাপতি"
+>
+
+
+<div class="profile-info">
+
+
+<div class="profile-name">
+
+জনাব মোঃ আমিনুল আকতার
+
+</div>
+
+
+<div class="profile-title">
+
+পরিচালক পরিষদের সভাপতি
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <div class="footer">
 
-<div>
-🕒 <span id="clock">--:--:--</span>
-</div>
 
 <div>
+
+🕒
+
+<span id="clock">
+--:--:--
+</span>
+
+</div>
+
+
+<div>
+
 Hazrat Shah Ali Mohila College
+
 </div>
+
 
 <div>
-📅 <span id="today">--</span>
-</div>
+
+📅
+
+<span id="today">
+--
+</span>
 
 </div>
 
+
+</div>
+
+
+
+<!-- =========================
+     BOTTOM
+========================= -->
 
 <div class="bottom">
+
 শিক্ষাই আলো, শিক্ষাই শক্তি
+
 </div>
+
 
 
 <script>
+
+/* =====================================================
+   GOOGLE APPS SCRIPT API
+===================================================== */
 
 const API_URL =
 'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
 
 
 let notices = [];
+
 let current = 0;
+
 let noticeTimer = null;
 
 
-/* =========================
+
+/* =====================================================
    LOAD NOTICE
-========================= */
+===================================================== */
 
 function loadNotices(){
 
-const callbackName = 'showNotices';
+const callbackName =
+'showNotices';
 
-window[callbackName] = function(data){
 
-notices = Array.isArray(data) ? data : [];
+window[callbackName] =
+function(data){
+
+
+notices =
+Array.isArray(data)
+? data
+: [];
+
 
 if(notices.length === 0){
 
-document.getElementById('notice-heading').innerText =
+
+document
+.getElementById('notice-heading')
+.innerText =
 'নোটিশ নেই';
 
-document.getElementById('notice').innerText =
+
+document
+.getElementById('notice')
+.innerText =
 'বর্তমানে কোনো নতুন নোটিশ নেই';
 
-document.getElementById('date').innerText = '';
+
+document
+.getElementById('date')
+.innerText =
+'';
+
 
 return;
+
 }
+
 
 current = 0;
 
@@ -326,18 +952,38 @@ showNotice();
 };
 
 
+
+/* =====================================================
+   REMOVE OLD SCRIPT
+===================================================== */
+
 const oldScript =
-document.getElementById('noticeScript');
+document.getElementById(
+'noticeScript'
+);
+
 
 if(oldScript){
+
 oldScript.remove();
+
 }
 
 
-const script =
-document.createElement('script');
 
-script.id = 'noticeScript';
+/* =====================================================
+   CREATE NEW SCRIPT
+===================================================== */
+
+const script =
+document.createElement(
+'script'
+);
+
+
+script.id =
+'noticeScript';
+
 
 script.src =
 API_URL +
@@ -347,16 +993,32 @@ callbackName +
 Date.now();
 
 
-script.onerror = function(){
 
-document.getElementById('notice-heading').innerText =
+/* =====================================================
+   CONNECTION ERROR
+===================================================== */
+
+script.onerror =
+function(){
+
+
+document
+.getElementById('notice-heading')
+.innerText =
 'সংযোগ সমস্যা';
 
-document.getElementById('notice').innerText =
+
+document
+.getElementById('notice')
+.innerText =
 'নোটিশ লোড করা যাচ্ছে না';
 
-document.getElementById('date').innerText =
+
+document
+.getElementById('date')
+.innerText =
 'ইন্টারনেট সংযোগ পরীক্ষা করুন';
+
 
 };
 
@@ -366,23 +1028,26 @@ document.body.appendChild(script);
 }
 
 
-/* =========================
+
+/* =====================================================
    AUTO HEADING SIZE
-========================= */
+===================================================== */
 
 function adjustHeadingSize(){
 
+
 const heading =
-document.getElementById('notice-heading');
+document.getElementById(
+'notice-heading'
+);
+
 
 const length =
-heading.innerText.trim().length;
+heading.innerText
+.trim()
+.length;
 
 
-/*
-ছোট heading = বড় font
-বড় heading = ছোট font
-*/
 
 if(length <= 20){
 
@@ -391,12 +1056,14 @@ heading.style.fontSize =
 
 }
 
+
 else if(length <= 35){
 
 heading.style.fontSize =
 '46px';
 
 }
+
 
 else if(length <= 50){
 
@@ -405,12 +1072,14 @@ heading.style.fontSize =
 
 }
 
+
 else if(length <= 70){
 
 heading.style.fontSize =
 '34px';
 
 }
+
 
 else{
 
@@ -422,14 +1091,18 @@ heading.style.fontSize =
 }
 
 
-/* =========================
+
+/* =====================================================
    SHOW NOTICE
-========================= */
+===================================================== */
 
 function showNotice(){
 
+
 if(notices.length === 0){
+
 return;
+
 }
 
 
@@ -437,33 +1110,53 @@ const item =
 notices[current];
 
 
-/* Heading */
+
+/* =================================================
+   HEADING
+================================================= */
 
 const heading =
-document.getElementById('notice-heading');
+document.getElementById(
+'notice-heading'
+);
+
 
 heading.innerText =
 item.heading || '';
 
+
 adjustHeadingSize();
 
 
-/* Paragraph */
+
+/* =================================================
+   NOTICE TEXT
+================================================= */
 
 const paragraph =
-document.getElementById('notice');
+document.getElementById(
+'notice'
+);
+
 
 paragraph.innerText =
 item.notice || '';
 
 
-/* Date */
+
+/* =================================================
+   DATE
+================================================= */
 
 const dateElement =
-document.getElementById('date');
+document.getElementById(
+'date'
+);
+
 
 
 if(item.date){
+
 
 const d =
 new Date(item.date);
@@ -471,36 +1164,55 @@ new Date(item.date);
 
 if(!isNaN(d.getTime())){
 
+
 dateElement.innerText =
 '📅 তারিখ: ' +
-d.toLocaleDateString('bn-BD',{
+
+d.toLocaleDateString(
+'bn-BD',
+{
+
 day:'numeric',
+
 month:'long',
+
 year:'numeric'
-});
 
 }
 
+);
+
+
+}
+
+
 else{
+
 
 dateElement.innerText =
 '📅 তারিখ: ' +
+
 item.date;
 
+
 }
 
 }
+
 
 else{
 
-dateElement.innerText = '';
+
+dateElement.innerText =
+'';
 
 }
 
 
-/* =========================
+
+/* =================================================
    AUTOMATIC READING TIME
-========================= */
+================================================= */
 
 const text =
 (item.notice || '').trim();
@@ -510,19 +1222,8 @@ const characters =
 text.length;
 
 
-/*
-Reading time:
-
-ছোট notice → 5 sec
-
-মাঝারি → 8-20 sec
-
-বড় → বেশি সময়
-
-Maximum → 60 sec
-*/
-
 let seconds;
+
 
 
 if(characters <= 80){
@@ -531,11 +1232,13 @@ seconds = 5;
 
 }
 
+
 else if(characters <= 160){
 
 seconds = 8;
 
 }
+
 
 else if(characters <= 250){
 
@@ -543,11 +1246,13 @@ seconds = 12;
 
 }
 
+
 else if(characters <= 350){
 
 seconds = 16;
 
 }
+
 
 else if(characters <= 500){
 
@@ -555,11 +1260,13 @@ seconds = 20;
 
 }
 
+
 else if(characters <= 700){
 
 seconds = 25;
 
 }
+
 
 else{
 
@@ -568,22 +1275,35 @@ seconds = 30;
 }
 
 
-/* পুরোনো timer বন্ধ */
+
+/* =================================================
+   STOP OLD TIMER
+================================================= */
 
 if(noticeTimer){
 
-clearTimeout(noticeTimer);
+clearTimeout(
+noticeTimer
+);
 
 }
 
 
-/* নতুন notice দেখানোর timer */
 
-noticeTimer = setTimeout(function(){
+/* =================================================
+   NEW NOTICE TIMER
+================================================= */
+
+noticeTimer =
+setTimeout(
+function(){
+
 
 if(notices.length > 1){
 
+
 current++;
+
 
 if(current >= notices.length){
 
@@ -591,47 +1311,79 @@ current = 0;
 
 }
 
+
 showNotice();
 
 }
 
-},seconds * 1000);
+
+},
+seconds * 1000
+);
 
 }
 
 
-/* =========================
+
+/* =====================================================
    CLOCK
-========================= */
+===================================================== */
 
 function updateClock(){
+
 
 const now =
 new Date();
 
 
-document.getElementById('clock').innerText =
+
+/* TIME */
+
+document
+.getElementById('clock')
+.innerText =
+
 now.toLocaleTimeString(
 'bn-BD',
 {
+
 hour12:true
+
 }
+
 );
 
 
-document.getElementById('today').innerText =
+
+/* DATE */
+
+document
+.getElementById('today')
+.innerText =
+
 now.toLocaleDateString(
 'bn-BD',
 {
+
 weekday:'long',
+
 day:'numeric',
+
 month:'long',
+
 year:'numeric'
+
 }
+
 );
 
 }
 
+
+
+/* =====================================================
+   START CLOCK
+===================================================== */
 
 setInterval(
 updateClock,
@@ -642,17 +1394,19 @@ updateClock,
 updateClock();
 
 
-/* =========================
+
+/* =====================================================
    FIRST LOAD
-========================= */
+===================================================== */
 
 loadNotices();
 
 
-/* =========================
-   NEW DATA CHECK
+
+/* =====================================================
+   CHECK NEW DATA
    প্রতি 30 সেকেন্ডে
-========================= */
+===================================================== */
 
 setInterval(
 loadNotices,
@@ -661,5 +1415,7 @@ loadNotices,
 
 </script>
 
+
 </body>
+
 </html>
