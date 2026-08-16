@@ -12,644 +12,1029 @@
 
 <style>
 
-/* =========================
+/* =====================================================
    RESET
-========================= */
+===================================================== */
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 
-/* =========================
+/* =====================================================
    BODY
-========================= */
+===================================================== */
+
+html,
+body{
+    width:100%;
+    height:100%;
+}
+
 
 body{
 
-font-family:Arial,sans-serif;
+    font-family:Arial,sans-serif;
 
-min-height:150vh;
+    background:
+    linear-gradient(
+        180deg,
+        #065f46 0%,
+        #00112b 25%,
+        #000814 100%
+    );
 
-background:
-linear-gradient(
-180deg,
-#065f46 0%,
-#00112b 25%,
-#000814 100%
-);
+    color:white;
 
-color:white;
+    display:flex;
 
-display:flex;
+    flex-direction:column;
 
-flex-direction:column;
-
-overflow:hidden;
+    overflow:hidden;
 
 }
 
 
-/* =========================
+/* =====================================================
    HEADER
-========================= */
+===================================================== */
 
 .header{
 
-background:
-linear-gradient(
-90deg,
-#065f46,
-#047857,
-#065f46
-);
+    flex-shrink:0;
 
-padding:18px 10px;
+    background:
+    linear-gradient(
+        90deg,
+        #065f46,
+        #047857,
+        #065f46
+    );
 
-border-bottom:3px solid #d4af37;
+    padding:18px 10px;
+
+    border-bottom:3px solid #d4af37;
 
 }
 
 
 .college-top{
 
-display:flex;
+    display:flex;
 
-justify-content:center;
+    justify-content:center;
 
-align-items:center;
+    align-items:center;
 
-gap:20px;
+    gap:20px;
 
-flex-wrap:wrap;
+    flex-wrap:wrap;
 
 }
 
 
 .college-logo{
 
-width:95px;
+    width:95px;
 
-height:95px;
+    height:95px;
 
-object-fit:contain;
+    object-fit:contain;
 
-background:white;
+    background:white;
 
-border-radius:50%;
+    border-radius:50%;
 
-padding:4px;
+    padding:4px;
 
-box-shadow:
-0 0 14px rgba(255,255,255,.45);
+    box-shadow:
+    0 0 14px rgba(255,255,255,.45);
 
 }
 
 
 .college-text{
 
-text-align:left;
+    text-align:left;
 
 }
 
 
 .college-text h1{
 
-font-size:48px;
+    font-size:48px;
 
-font-weight:800;
+    font-weight:800;
 
-line-height:1.05;
+    line-height:1.05;
 
 }
 
 
 .college-text h2{
 
-font-size:20px;
+    font-size:20px;
 
-letter-spacing:5px;
+    letter-spacing:5px;
 
-margin-top:8px;
+    margin-top:8px;
 
-font-weight:700;
+    font-weight:700;
 
 }
 
 
-/* =========================
+/* =====================================================
    NOTICE AREA
-========================= */
+===================================================== */
 
 .notice-box{
 
-flex:1;
+    flex:1;
 
-display:flex;
+    display:flex;
 
-justify-content:center;
+    justify-content:center;
 
-align-items:center;
+    align-items:flex-start;
 
-padding:18px;
+    padding:8px 18px 18px;
+
+    min-height:0;
 
 }
 
+
+/* =====================================================
+   NOTICE LAYOUT
+===================================================== */
 
 .notice-layout{
 
-width:96%;
+    width:96%;
 
-max-width:1500px;
+    max-width:1500px;
 
-display:flex;
+    display:flex;
 
-gap:18px;
+    gap:18px;
 
-align-items:stretch;
+    align-items:flex-start;
+
+    margin-top:0;
 
 }
 
 
-/* =========================
+/* =====================================================
    NOTICE CARD
-========================= */
+===================================================== */
 
 .notice-card{
 
-flex:1;
+    flex:1;
 
-background:
-rgba(0,10,40,.92);
+    background:
+    rgba(0,10,40,.92);
 
-border:
-2px solid rgba(255,255,255,.14);
+    border:
+    2px solid rgba(255,255,255,.14);
 
-border-radius:28px;
+    border-radius:28px;
 
-padding:
-25px 34px 34px;
+    padding:
+    25px 34px 30px;
 
-text-align:center;
+    text-align:center;
 
-box-shadow:
-0 0 36px rgba(0,0,0,.5);
+    box-shadow:
+    0 0 36px rgba(0,0,0,.5);
 
 }
 
 
-/* =========================
+/* =====================================================
    NOTICE BADGE
-========================= */
+===================================================== */
 
 .badge{
 
-display:inline-block;
+    display:inline-block;
 
-background:
-linear-gradient(
-90deg,
-#f59e0b,
-#facc15
-);
+    background:
+    linear-gradient(
+        90deg,
+        #f59e0b,
+        #facc15
+    );
 
-color:#111827;
+    color:#111827;
 
-font-weight:800;
+    font-weight:800;
 
-font-size:28px;
+    font-size:28px;
 
-padding:
-14px 34px;
+    padding:
+    14px 34px;
 
-border-radius:999px;
+    border-radius:999px;
 
-margin-bottom:12px;
+    margin-bottom:12px;
 
-box-shadow:
-0 0 20px rgba(250,204,21,.45);
+    box-shadow:
+    0 0 20px rgba(250,204,21,.45);
 
 }
 
 
-/* =========================
+/* =====================================================
    NOTICE HEADING
-========================= */
+===================================================== */
 
 #notice-heading{
 
-font-size:52px;
+    font-size:52px;
 
-font-weight:800;
+    font-weight:800;
 
-color:#facc15;
+    color:#facc15;
 
-margin:
-0 auto 14px;
+    margin:
+    0 auto 14px;
 
-line-height:1.18;
+    line-height:1.18;
 
-text-shadow:
-0 2px 10px rgba(0,0,0,.5);
+    text-shadow:
+    0 2px 10px rgba(0,0,0,.5);
 
-max-width:1150px;
+    max-width:1150px;
+
+    overflow-wrap:anywhere;
 
 }
 
 
-/* =========================
+/* =====================================================
    NOTICE TEXT
-========================= */
+===================================================== */
 
 #notice{
 
-font-size:30px;
+    font-size:30px;
 
-line-height:1.7;
+    line-height:1.7;
 
-font-weight:600;
+    font-weight:600;
 
-text-align:center;
+    text-align:center;
 
-background:
-rgba(255,255,255,.06);
+    background:
+    rgba(255,255,255,.06);
 
-border:
-2px solid rgba(255,255,255,.16);
+    border:
+    2px solid rgba(255,255,255,.16);
 
-border-radius:22px;
+    border-radius:22px;
 
-padding:
-25px 34px;
+    padding:
+    25px 34px;
 
-max-width:1050px;
+    max-width:1050px;
 
-margin:
-0 auto 20px;
+    margin:
+    0 auto 20px;
 
-color:#f8fafc;
+    color:#f8fafc;
 
-min-height:160px;
+    min-height:160px;
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-justify-content:center;
+    justify-content:center;
 
-box-shadow:
-inset 0 0 12px
-rgba(255,255,255,.04);
+    box-shadow:
+    inset 0 0 12px
+    rgba(255,255,255,.04);
+
+    overflow-wrap:anywhere;
 
 }
 
 
-/* =========================
+/* =====================================================
    DATE
-========================= */
+===================================================== */
 
 #date{
 
-font-size:27px;
+    font-size:27px;
 
-color:#d9f99d;
+    color:#d9f99d;
 
-font-weight:700;
+    font-weight:700;
 
-margin-top:5px;
+    margin-top:5px;
 
 }
 
 
-/* =========================
+/* =====================================================
    RIGHT PROFILE PANEL
-========================= */
+===================================================== */
 
 .profile-panel{
 
-width:250px;
+    width:250px;
 
-display:flex;
+    flex-shrink:0;
 
-flex-direction:column;
+    display:flex;
 
-gap:15px;
+    flex-direction:column;
+
+    gap:15px;
 
 }
 
 
-/* =========================
+/* =====================================================
    PROFILE CARD
-========================= */
+===================================================== */
 
 .profile-card{
 
-background:
-rgba(0,10,40,.94);
+    background:
+    rgba(0,10,40,.94);
 
-border:
-2px solid #d4af37;
+    border:
+    2px solid #d4af37;
 
-border-radius:20px;
+    border-radius:20px;
 
-overflow:hidden;
+    overflow:hidden;
 
-text-align:center;
+    text-align:center;
 
-box-shadow:
-0 0 20px rgba(0,0,0,.5);
+    box-shadow:
+    0 0 20px rgba(0,0,0,.5);
 
 }
 
 
-/* =========================
+/* =====================================================
    PROFILE IMAGE
-========================= */
+===================================================== */
 
 .profile-card img{
 
-width:100%;
+    width:100%;
 
-height:180px;
+    height:180px;
 
-object-fit:cover;
+    object-fit:cover;
 
-display:block;
+    display:block;
 
 }
 
 
-/* =========================
+/* =====================================================
    PROFILE INFO
-========================= */
+===================================================== */
 
 .profile-info{
 
-padding:
-10px 8px 12px;
+    padding:
+    10px 8px 12px;
 
 }
 
 
 .profile-name{
 
-font-size:20px;
+    font-size:20px;
 
-font-weight:800;
+    font-weight:800;
 
-color:#facc15;
+    color:#facc15;
 
-line-height:1.3;
+    line-height:1.3;
 
 }
 
 
 .profile-title{
 
-font-size:17px;
+    font-size:17px;
 
-font-weight:600;
+    font-weight:600;
 
-color:white;
+    color:white;
 
-margin-top:5px;
+    margin-top:5px;
 
-line-height:1.4;
+    line-height:1.4;
 
 }
 
 
 .profile-phone{
 
-font-size:16px;
+    font-size:16px;
 
-color:#d9f99d;
+    color:#d9f99d;
 
-margin-top:5px;
+    margin-top:5px;
 
-font-weight:700;
+    font-weight:700;
 
 }
 
 
-/* =========================
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
 .footer{
 
-background:#00112b;
+    flex-shrink:0;
 
-border-top:
-2px solid #d4af37;
+    background:#00112b;
 
-padding:
-14px 22px;
+    border-top:
+    2px solid #d4af37;
 
-display:flex;
+    padding:
+    14px 22px;
 
-justify-content:space-between;
+    display:flex;
 
-align-items:center;
+    justify-content:space-between;
 
-font-size:20px;
+    align-items:center;
 
-font-weight:600;
+    font-size:20px;
+
+    font-weight:600;
 
 }
 
 
-/* =========================
+/* =====================================================
    BOTTOM
-========================= */
+===================================================== */
 
 .bottom{
 
-background:#065f46;
+    flex-shrink:0;
 
-padding:12px;
+    background:#065f46;
 
-text-align:center;
+    padding:12px;
 
-font-size:24px;
+    text-align:center;
 
-font-weight:700;
+    font-size:24px;
 
-border-top:
-2px solid #d4af37;
+    font-weight:700;
 
-letter-spacing:.5px;
+    border-top:
+    2px solid #d4af37;
+
+    letter-spacing:.5px;
 
 }
 
 
-/* =========================
+/* =====================================================
+   TV 16:9 OPTIMIZATION
+===================================================== */
+
+@media(min-width:769px) and (max-height:900px){
+
+    .header{
+
+        padding:12px 10px;
+
+    }
+
+
+    .college-logo{
+
+        width:75px;
+
+        height:75px;
+
+    }
+
+
+    .college-text h1{
+
+        font-size:38px;
+
+    }
+
+
+    .college-text h2{
+
+        font-size:17px;
+
+        margin-top:5px;
+
+    }
+
+
+    .notice-box{
+
+        padding:
+        8px 18px 12px;
+
+    }
+
+
+    .notice-card{
+
+        padding:
+        18px 28px 22px;
+
+    }
+
+
+    .badge{
+
+        font-size:23px;
+
+        padding:
+        10px 28px;
+
+        margin-bottom:10px;
+
+    }
+
+
+    #notice-heading{
+
+        font-size:44px;
+
+        margin-bottom:10px;
+
+    }
+
+
+    #notice{
+
+        font-size:25px;
+
+        line-height:1.6;
+
+        min-height:130px;
+
+        padding:
+        20px 28px;
+
+        margin-bottom:12px;
+
+    }
+
+
+    #date{
+
+        font-size:22px;
+
+    }
+
+
+    .profile-panel{
+
+        gap:12px;
+
+    }
+
+
+    .profile-card img{
+
+        height:145px;
+
+    }
+
+
+    .profile-info{
+
+        padding:
+        7px 6px 9px;
+
+    }
+
+
+    .profile-name{
+
+        font-size:18px;
+
+    }
+
+
+    .profile-title{
+
+        font-size:15px;
+
+    }
+
+
+    .profile-phone{
+
+        font-size:14px;
+
+    }
+
+
+    .footer{
+
+        padding:
+        9px 18px;
+
+        font-size:17px;
+
+    }
+
+
+    .bottom{
+
+        padding:8px;
+
+        font-size:20px;
+
+    }
+
+}
+
+
+/* =====================================================
+   VERY SHORT TV SCREEN
+===================================================== */
+
+@media(min-width:769px) and (max-height:700px){
+
+    .header{
+
+        padding:8px;
+
+    }
+
+
+    .college-logo{
+
+        width:60px;
+
+        height:60px;
+
+    }
+
+
+    .college-text h1{
+
+        font-size:30px;
+
+    }
+
+
+    .college-text h2{
+
+        font-size:13px;
+
+        letter-spacing:3px;
+
+    }
+
+
+    .notice-box{
+
+        padding:
+        5px 12px 8px;
+
+    }
+
+
+    .notice-layout{
+
+        gap:12px;
+
+    }
+
+
+    .notice-card{
+
+        padding:
+        12px 20px 15px;
+
+    }
+
+
+    .badge{
+
+        font-size:18px;
+
+        padding:
+        7px 20px;
+
+        margin-bottom:7px;
+
+    }
+
+
+    #notice-heading{
+
+        font-size:34px;
+
+        margin-bottom:7px;
+
+    }
+
+
+    #notice{
+
+        font-size:21px;
+
+        line-height:1.5;
+
+        min-height:95px;
+
+        padding:
+        12px 18px;
+
+        margin-bottom:8px;
+
+    }
+
+
+    #date{
+
+        font-size:18px;
+
+    }
+
+
+    .profile-panel{
+
+        width:220px;
+
+        gap:8px;
+
+    }
+
+
+    .profile-card img{
+
+        height:105px;
+
+    }
+
+
+    .profile-info{
+
+        padding:
+        5px;
+
+    }
+
+
+    .profile-name{
+
+        font-size:15px;
+
+    }
+
+
+    .profile-title{
+
+        font-size:13px;
+
+    }
+
+
+    .profile-phone{
+
+        font-size:12px;
+
+    }
+
+
+    .footer{
+
+        padding:
+        6px 12px;
+
+        font-size:14px;
+
+    }
+
+
+    .bottom{
+
+        padding:5px;
+
+        font-size:16px;
+
+    }
+
+}
+
+
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:768px){
 
-body{
+    body{
 
-overflow:auto;
+        overflow:auto;
 
-}
+    }
 
 
-.college-top{
+    .header{
 
-flex-direction:column;
+        padding:
+        15px 10px;
 
-gap:10px;
+    }
 
-}
 
+    .college-top{
 
-.college-text{
+        flex-direction:column;
 
-text-align:center;
+        gap:10px;
 
-}
+    }
 
 
-.college-text h1{
+    .college-logo{
 
-font-size:32px;
+        width:75px;
 
-}
+        height:75px;
 
+    }
 
-.college-text h2{
 
-font-size:15px;
+    .college-text{
 
-letter-spacing:3px;
+        text-align:center;
 
-}
+    }
 
 
-.notice-layout{
+    .college-text h1{
 
-flex-direction:column;
+        font-size:30px;
 
-}
+    }
 
 
-.notice-card{
+    .college-text h2{
 
-width:100%;
+        font-size:14px;
 
-padding:
-20px 16px 28px;
+        letter-spacing:2px;
 
-}
+    }
 
 
-.badge{
+    .notice-box{
 
-font-size:20px;
+        padding:
+        12px;
 
-padding:
-10px 22px;
+    }
 
-margin-bottom:12px;
 
-}
+    .notice-layout{
 
+        width:100%;
 
-#notice-heading{
+        flex-direction:column;
 
-font-size:30px;
+    }
 
-margin-bottom:10px;
 
-}
+    .notice-card{
 
+        width:100%;
 
-#notice{
+        padding:
+        20px 16px 28px;
 
-font-size:20px;
+    }
 
-line-height:1.7;
 
-padding:18px;
+    .badge{
 
-min-height:120px;
+        font-size:20px;
 
-}
+        padding:
+        10px 22px;
 
+        margin-bottom:12px;
 
-#date{
+    }
 
-font-size:20px;
 
-}
+    #notice-heading{
 
+        font-size:30px;
 
-.profile-panel{
+        margin-bottom:10px;
 
-width:100%;
+    }
 
-flex-direction:row;
 
-}
+    #notice{
 
+        font-size:20px;
 
-.profile-card{
+        line-height:1.7;
 
-flex:1;
+        padding:18px;
 
-}
+        min-height:120px;
 
+    }
 
-.profile-card img{
 
-height:150px;
+    #date{
 
-}
+        font-size:20px;
 
+    }
 
-.profile-name{
 
-font-size:16px;
+    .profile-panel{
 
-}
+        width:100%;
 
+        flex-direction:row;
 
-.profile-title{
+    }
 
-font-size:14px;
 
-}
+    .profile-card{
 
+        flex:1;
 
-.profile-phone{
+    }
 
-font-size:13px;
 
-}
+    .profile-card img{
 
+        height:150px;
 
-.footer{
+    }
 
-flex-direction:column;
 
-gap:8px;
+    .profile-name{
 
-font-size:16px;
+        font-size:16px;
 
-text-align:center;
+    }
 
-}
 
+    .profile-title{
 
-.bottom{
+        font-size:14px;
 
-font-size:18px;
+    }
 
-}
+
+    .profile-phone{
+
+        font-size:13px;
+
+    }
+
+
+    .footer{
+
+        flex-direction:column;
+
+        gap:8px;
+
+        font-size:16px;
+
+        text-align:center;
+
+    }
+
+
+    .bottom{
+
+        font-size:18px;
+
+    }
 
 }
 
@@ -661,221 +1046,211 @@ font-size:18px;
 <body>
 
 
-<!-- =========================
+<!-- =====================================================
      HEADER
-========================= -->
+===================================================== -->
 
 <div class="header">
 
-<div class="college-top">
+    <div class="college-top">
 
 
-<img
-src="logo.jpg"
-alt="College Logo"
-class="college-logo"
->
+        <img
+            src="logo.jpg"
+            alt="College Logo"
+            class="college-logo"
+        >
 
 
-<div class="college-text">
+        <div class="college-text">
 
-<h1>
-Hazrat Shah Ali Mohila College
-</h1>
+            <h1>
+                Hazrat Shah Ali Mohila College
+            </h1>
 
 
-<h2>
-Mirpur-1, Dhaka, Bangladesh
-</h2>
+            <h2>
+                Mirpur-1, Dhaka, Bangladesh
+            </h2>
+
+        </div>
+
+
+    </div>
 
 </div>
 
 
-</div>
 
-</div>
-
-
-
-<!-- =========================
+<!-- =====================================================
      NOTICE AREA
-========================= -->
+===================================================== -->
 
 <div class="notice-box">
 
-<div class="notice-layout">
+    <div class="notice-layout">
 
 
-<!-- =========================
-     MAIN NOTICE CARD
-========================= -->
+        <!-- =================================================
+             MAIN NOTICE CARD
+        ================================================= -->
 
-<div class="notice-card">
-
-
-<div class="badge">
-📢 NOTICE
-</div>
+        <div class="notice-card">
 
 
-<div id="notice-heading">
-লোড হচ্ছে...
-</div>
+            <div class="badge">
+                📢 NOTICE
+            </div>
 
 
-<div id="notice">
-</div>
+            <div id="notice-heading">
+                লোড হচ্ছে...
+            </div>
 
 
-<div id="date">
-</div>
+            <div id="notice">
+                নোটিশ লোড হচ্ছে...
+            </div>
 
 
-</div>
+            <div id="date">
+            </div>
 
 
-
-<!-- =========================
-     RIGHT PROFILE PANEL
-========================= -->
-
-<div class="profile-panel">
-
-
-<!-- =========================
-     PRINCIPAL
-========================= -->
-
-<div class="profile-card">
-
-
-<img
-src="principal.jpg.webp"
-alt="অধ্যক্ষ"
->
-
-
-<div class="profile-info">
-
-
-<div class="profile-name">
-
-জনাব রানা ফেরদৌস রত্না
-
-</div>
-
-
-<div class="profile-title">
-
-অধ্যক্ষ
-
-</div>
-
-
-<div class="profile-phone">
-
-📞 01711-676319
-
-</div>
-
-
-</div>
-
-</div>
+        </div>
 
 
 
-<!-- =========================
-     CHAIRMAN
-========================= -->
+        <!-- =================================================
+             RIGHT PROFILE PANEL
+        ================================================= -->
 
-<div class="profile-card">
-
-
-<img
-src="chairman.jpg.webp"
-alt="পরিচালক পরিষদের সভাপতি"
->
+        <div class="profile-panel">
 
 
-<div class="profile-info">
+            <!-- =================================================
+                 PRINCIPAL
+            ================================================= -->
+
+            <div class="profile-card">
 
 
-<div class="profile-name">
-
-জনাব মোঃ আমিনুল আকতার
-
-</div>
-
-
-<div class="profile-title">
-
-পরিচালক পরিষদের সভাপতি
-
-</div>
+                <img
+                    src="principal.jpg.webp"
+                    alt="অধ্যক্ষ"
+                >
 
 
-</div>
-
-</div>
+                <div class="profile-info">
 
 
-</div>
+                    <div class="profile-name">
+                        জনাব রানা ফেরদৌস রত্না
+                    </div>
 
 
-</div>
+                    <div class="profile-title">
+                        অধ্যক্ষ
+                    </div>
+
+
+                    <div class="profile-phone">
+                        📞 01711-676319
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CHAIRMAN
+            ================================================= -->
+
+            <div class="profile-card">
+
+
+                <img
+                    src="chairman.jpg.webp"
+                    alt="পরিচালক পরিষদের সভাপতি"
+                >
+
+
+                <div class="profile-info">
+
+
+                    <div class="profile-name">
+                        জনাব মোঃ আমিনুল আকতার
+                    </div>
+
+
+                    <div class="profile-title">
+                        পরিচালক পরিষদের সভাপতি
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
 
 </div>
 
 
 
-<!-- =========================
+<!-- =====================================================
      FOOTER
-========================= -->
+===================================================== -->
 
 <div class="footer">
 
 
-<div>
+    <div>
 
-🕒
+        🕒
 
-<span id="clock">
---:--:--
-</span>
+        <span id="clock">
+            --:--:--
+        </span>
+
+    </div>
+
+
+    <div>
+
+        Hazrat Shah Ali Mohila College
+
+    </div>
+
+
+    <div>
+
+        📅
+
+        <span id="today">
+            --
+        </span>
+
+    </div>
+
 
 </div>
 
 
-<div>
 
-Hazrat Shah Ali Mohila College
-
-</div>
-
-
-<div>
-
-📅
-
-<span id="today">
---
-</span>
-
-</div>
-
-
-</div>
-
-
-
-<!-- =========================
+<!-- =====================================================
      BOTTOM
-========================= -->
+===================================================== -->
 
 <div class="bottom">
 
-শিক্ষাই আলো, শিক্ষাই শক্তি
+    শিক্ষাই আলো, শিক্ষাই শক্তি
 
 </div>
 
@@ -891,139 +1266,248 @@ const API_URL =
 'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
 
 
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
 let notices = [];
 
 let current = 0;
 
 let noticeTimer = null;
 
+let lastNoticeData = '';
+
 
 
 /* =====================================================
-   LOAD NOTICE
+   LOAD NOTICES
 ===================================================== */
 
 function loadNotices(){
 
-const callbackName =
-'showNotices';
+
+    const callbackName =
+    'showNotices_' + Date.now();
 
 
-window[callbackName] =
-function(data){
+    window[callbackName] =
+    function(data){
 
 
-notices =
-Array.isArray(data)
-? data
-: [];
+        try{
 
 
-if(notices.length === 0){
+            const newNotices =
+            Array.isArray(data)
+            ? data
+            : [];
 
 
-document
-.getElementById('notice-heading')
-.innerText =
-'নোটিশ নেই';
+            const newData =
+            JSON.stringify(newNotices);
 
 
-document
-.getElementById('notice')
-.innerText =
-'বর্তমানে কোনো নতুন নোটিশ নেই';
+            /*
+             * যদি Google Sheet-এর data
+             * পরিবর্তন না হয় তাহলে
+             * slideshow reset হবে না।
+             */
+
+            if(newData === lastNoticeData){
+
+                return;
+
+            }
 
 
-document
-.getElementById('date')
-.innerText =
-'';
+            lastNoticeData =
+            newData;
 
 
-return;
-
-}
-
-
-current = 0;
-
-showNotice();
-
-};
+            notices =
+            newNotices;
 
 
+            /* =============================================
+               NO NOTICE
+            ============================================= */
 
-/* =====================================================
-   REMOVE OLD SCRIPT
-===================================================== */
-
-const oldScript =
-document.getElementById(
-'noticeScript'
-);
+            if(notices.length === 0){
 
 
-if(oldScript){
+                if(noticeTimer){
 
-oldScript.remove();
+                    clearTimeout(
+                        noticeTimer
+                    );
 
-}
+                    noticeTimer = null;
 
-
-
-/* =====================================================
-   CREATE NEW SCRIPT
-===================================================== */
-
-const script =
-document.createElement(
-'script'
-);
+                }
 
 
-script.id =
-'noticeScript';
+                document
+                .getElementById(
+                    'notice-heading'
+                )
+                .innerText =
+                'নোটিশ নেই';
 
 
-script.src =
-API_URL +
-'?callback=' +
-callbackName +
-'&t=' +
-Date.now();
+                document
+                .getElementById(
+                    'notice'
+                )
+                .innerText =
+                'বর্তমানে কোনো নতুন নোটিশ নেই';
+
+
+                document
+                .getElementById(
+                    'date'
+                )
+                .innerText =
+                '';
+
+
+                return;
+
+            }
+
+
+            /* =============================================
+               CURRENT INDEX
+            ============================================= */
+
+            if(current >= notices.length){
+
+                current = 0;
+
+            }
+
+
+            showNotice();
+
+
+        }
+
+        catch(error){
+
+            console.error(
+                'Notice Error:',
+                error
+            );
+
+        }
+
+
+        finally{
+
+
+            try{
+
+                delete window[callbackName];
+
+            }
+
+            catch(e){}
+
+        }
+
+    };
 
 
 
-/* =====================================================
-   CONNECTION ERROR
-===================================================== */
+    /* =================================================
+       REMOVE OLD SCRIPT
+    ================================================= */
 
-script.onerror =
-function(){
-
-
-document
-.getElementById('notice-heading')
-.innerText =
-'সংযোগ সমস্যা';
+    const oldScript =
+    document.getElementById(
+        'noticeScript'
+    );
 
 
-document
-.getElementById('notice')
-.innerText =
-'নোটিশ লোড করা যাচ্ছে না';
+    if(oldScript){
+
+        oldScript.remove();
+
+    }
 
 
-document
-.getElementById('date')
-.innerText =
-'ইন্টারনেট সংযোগ পরীক্ষা করুন';
+
+    /* =================================================
+       CREATE JSONP SCRIPT
+    ================================================= */
+
+    const script =
+    document.createElement(
+        'script'
+    );
 
 
-};
+    script.id =
+    'noticeScript';
 
 
-document.body.appendChild(script);
+    script.src =
+    API_URL +
+    '?callback=' +
+    callbackName +
+    '&t=' +
+    Date.now();
+
+
+
+    /* =================================================
+       ERROR
+    ================================================= */
+
+    script.onerror =
+    function(){
+
+
+        /*
+         * Internet temporarily unavailable হলে
+         * পুরোনো notice মুছে যাবে না।
+         */
+
+        if(notices.length === 0){
+
+
+            document
+            .getElementById(
+                'notice-heading'
+            )
+            .innerText =
+            'সংযোগ সমস্যা';
+
+
+            document
+            .getElementById(
+                'notice'
+            )
+            .innerText =
+            'নোটিশ লোড করা যাচ্ছে না';
+
+
+            document
+            .getElementById(
+                'date'
+            )
+            .innerText =
+            'ইন্টারনেট সংযোগ পরীক্ষা করুন';
+
+        }
+
+    };
+
+
+    document.body.appendChild(
+        script
+    );
 
 }
 
@@ -1036,57 +1520,83 @@ document.body.appendChild(script);
 function adjustHeadingSize(){
 
 
-const heading =
-document.getElementById(
-'notice-heading'
-);
+    const heading =
+    document.getElementById(
+        'notice-heading'
+    );
 
 
-const length =
-heading.innerText
-.trim()
-.length;
+    const length =
+    heading.innerText
+    .trim()
+    .length;
 
 
 
-if(length <= 20){
+    if(length <= 20){
 
-heading.style.fontSize =
-'52px';
+        heading.style.fontSize =
+        '52px';
 
-}
+    }
+
+    else if(length <= 35){
+
+        heading.style.fontSize =
+        '46px';
+
+    }
+
+    else if(length <= 50){
+
+        heading.style.fontSize =
+        '40px';
+
+    }
+
+    else if(length <= 70){
+
+        heading.style.fontSize =
+        '34px';
+
+    }
+
+    else{
+
+        heading.style.fontSize =
+        '30px';
+
+    }
 
 
-else if(length <= 35){
 
-heading.style.fontSize =
-'46px';
+    /* MOBILE */
 
-}
+    if(window.innerWidth <= 768){
 
 
-else if(length <= 50){
+        if(length <= 30){
 
-heading.style.fontSize =
-'40px';
+            heading.style.fontSize =
+            '30px';
 
-}
+        }
 
+        else if(length <= 60){
 
-else if(length <= 70){
+            heading.style.fontSize =
+            '26px';
 
-heading.style.fontSize =
-'34px';
+        }
 
-}
+        else{
 
+            heading.style.fontSize =
+            '22px';
 
-else{
+        }
 
-heading.style.fontSize =
-'30px';
-
-}
+    }
 
 }
 
@@ -1099,227 +1609,219 @@ heading.style.fontSize =
 function showNotice(){
 
 
-if(notices.length === 0){
+    if(notices.length === 0){
 
-return;
+        return;
 
-}
+    }
 
 
-const item =
-notices[current];
+    const item =
+    notices[current] || {};
 
 
 
-/* =================================================
-   HEADING
-================================================= */
+    /* =================================================
+       HEADING
+    ================================================= */
 
-const heading =
-document.getElementById(
-'notice-heading'
-);
+    const heading =
+    document.getElementById(
+        'notice-heading'
+    );
 
 
-heading.innerText =
-item.heading || '';
+    heading.innerText =
+    item.heading || '';
 
 
-adjustHeadingSize();
+    adjustHeadingSize();
 
 
 
-/* =================================================
-   NOTICE TEXT
-================================================= */
+    /* =================================================
+       NOTICE
+    ================================================= */
 
-const paragraph =
-document.getElementById(
-'notice'
-);
+    const paragraph =
+    document.getElementById(
+        'notice'
+    );
 
 
-paragraph.innerText =
-item.notice || '';
+    paragraph.innerText =
+    item.notice || '';
 
 
 
-/* =================================================
-   DATE
-================================================= */
+    /* =================================================
+       DATE
+    ================================================= */
 
-const dateElement =
-document.getElementById(
-'date'
-);
+    const dateElement =
+    document.getElementById(
+        'date'
+    );
 
 
+    if(item.date){
 
-if(item.date){
 
+        const d =
+        new Date(item.date);
 
-const d =
-new Date(item.date);
 
+        if(!isNaN(d.getTime())){
 
-if(!isNaN(d.getTime())){
 
+            dateElement.innerText =
+            '📅 তারিখ: ' +
 
-dateElement.innerText =
-'📅 তারিখ: ' +
+            d.toLocaleDateString(
+                'bn-BD',
+                {
 
-d.toLocaleDateString(
-'bn-BD',
-{
+                    day:'numeric',
 
-day:'numeric',
+                    month:'long',
 
-month:'long',
+                    year:'numeric'
 
-year:'numeric'
+                }
+            );
 
-}
+        }
 
-);
+        else{
 
 
-}
+            dateElement.innerText =
+            '📅 তারিখ: ' +
 
+            item.date;
 
-else{
+        }
 
+    }
 
-dateElement.innerText =
-'📅 তারিখ: ' +
+    else{
 
-item.date;
+        dateElement.innerText =
+        '';
 
+    }
 
-}
 
-}
 
+    /* =================================================
+       AUTOMATIC READING TIME
+    ================================================= */
 
-else{
+    const text =
+    (item.notice || '').trim();
 
 
-dateElement.innerText =
-'';
+    const headingText =
+    (item.heading || '').trim();
 
-}
 
+    const totalCharacters =
+    text.length +
+    headingText.length;
 
 
-/* =================================================
-   AUTOMATIC READING TIME
-================================================= */
+    let seconds;
 
-const text =
-(item.notice || '').trim();
 
 
-const characters =
-text.length;
+    if(totalCharacters <= 80){
 
+        seconds = 5;
 
-let seconds;
+    }
 
+    else if(totalCharacters <= 160){
 
+        seconds = 8;
 
-if(characters <= 80){
+    }
 
-seconds = 5;
+    else if(totalCharacters <= 250){
 
-}
+        seconds = 12;
 
+    }
 
-else if(characters <= 160){
+    else if(totalCharacters <= 350){
 
-seconds = 8;
+        seconds = 16;
 
-}
+    }
 
+    else if(totalCharacters <= 500){
 
-else if(characters <= 250){
+        seconds = 20;
 
-seconds = 12;
+    }
 
-}
+    else if(totalCharacters <= 700){
 
+        seconds = 25;
 
-else if(characters <= 350){
+    }
 
-seconds = 16;
+    else{
 
-}
+        seconds = 30;
 
+    }
 
-else if(characters <= 500){
 
-seconds = 20;
 
-}
+    /* =================================================
+       STOP OLD TIMER
+    ================================================= */
 
+    if(noticeTimer){
 
-else if(characters <= 700){
+        clearTimeout(
+            noticeTimer
+        );
 
-seconds = 25;
+    }
 
-}
 
 
-else{
+    /* =================================================
+       NEXT NOTICE
+    ================================================= */
 
-seconds = 30;
+    noticeTimer =
+    setTimeout(
+        function(){
 
-}
 
+            if(notices.length > 1){
 
 
-/* =================================================
-   STOP OLD TIMER
-================================================= */
+                current++;
 
-if(noticeTimer){
 
-clearTimeout(
-noticeTimer
-);
+                if(current >= notices.length){
 
-}
+                    current = 0;
 
+                }
 
 
-/* =================================================
-   NEW NOTICE TIMER
-================================================= */
+                showNotice();
 
-noticeTimer =
-setTimeout(
-function(){
+            }
 
 
-if(notices.length > 1){
-
-
-current++;
-
-
-if(current >= notices.length){
-
-current = 0;
-
-}
-
-
-showNotice();
-
-}
-
-
-},
-seconds * 1000
-);
+        },
+        seconds * 1000
+    );
 
 }
 
@@ -1332,66 +1834,79 @@ seconds * 1000
 function updateClock(){
 
 
-const now =
-new Date();
+    const now =
+    new Date();
 
 
 
-/* TIME */
+    /* TIME */
 
-document
-.getElementById('clock')
-.innerText =
+    document
+    .getElementById(
+        'clock'
+    )
+    .innerText =
 
-now.toLocaleTimeString(
-'bn-BD',
-{
+    now.toLocaleTimeString(
+        'bn-BD',
+        {
 
-hour12:true
+            hour12:true
 
-}
-
-);
-
+        }
+    );
 
 
-/* DATE */
 
-document
-.getElementById('today')
-.innerText =
+    /* DATE */
 
-now.toLocaleDateString(
-'bn-BD',
-{
+    document
+    .getElementById(
+        'today'
+    )
+    .innerText =
 
-weekday:'long',
+    now.toLocaleDateString(
+        'bn-BD',
+        {
 
-day:'numeric',
+            weekday:'long',
 
-month:'long',
+            day:'numeric',
 
-year:'numeric'
+            month:'long',
 
-}
+            year:'numeric'
 
-);
+        }
+    );
 
 }
 
 
 
 /* =====================================================
-   START CLOCK
+   CLOCK START
 ===================================================== */
 
 setInterval(
-updateClock,
-1000
+    updateClock,
+    1000
 );
 
 
 updateClock();
+
+
+
+/* =====================================================
+   RESIZE
+===================================================== */
+
+window.addEventListener(
+    'resize',
+    adjustHeadingSize
+);
 
 
 
@@ -1404,13 +1919,13 @@ loadNotices();
 
 
 /* =====================================================
-   CHECK NEW DATA
-   প্রতি 30 সেকেন্ডে
+   CHECK GOOGLE SHEET
+   EVERY 30 SECONDS
 ===================================================== */
 
 setInterval(
-loadNotices,
-30000
+    loadNotices,
+    30000
 );
 
 </script>
