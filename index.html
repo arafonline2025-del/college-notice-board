@@ -79,7 +79,7 @@ body{
         #065f46
     );
 
-    padding:14px 10px;
+    padding:13px 10px;
 
     border-bottom:
     3px solid #d4af37;
@@ -108,8 +108,8 @@ body{
 
 .college-logo{
 
-    width:90px;
-    height:90px;
+    width:88px;
+    height:88px;
 
     object-fit:contain;
 
@@ -161,21 +161,84 @@ body{
    NOTICE AREA
 ========================= */
 
-@media
-(min-width:1920px)
-and
-(min-height:1080px){
+.notice-box{
 
-    .notice-box{
-        padding:0 20px 10px;
-        align-items:flex-start;
-    }
+    flex:1;
 
-    .notice-card{
-        max-width:1550px;
-        padding:20px 32px 24px;
-    }
+    min-height:0;
 
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    padding:
+    0 20px 10px;
+}
+
+
+/* =========================
+   NOTICE CARD
+========================= */
+
+.notice-card{
+
+    width:96%;
+
+    max-width:1550px;
+
+    background:
+    rgba(0,10,40,.92);
+
+    border:
+    2px solid
+    rgba(255,255,255,.14);
+
+    border-radius:26px;
+
+    padding:
+    20px 32px 24px;
+
+    text-align:center;
+
+    box-shadow:
+    0 0 36px
+    rgba(0,0,0,.5);
+}
+
+
+/* =========================
+   NOTICE BADGE
+========================= */
+
+.badge{
+
+    display:inline-block;
+
+    background:
+    linear-gradient(
+        90deg,
+        #f59e0b,
+        #facc15
+    );
+
+    color:#111827;
+
+    font-weight:800;
+
+    font-size:26px;
+
+    padding:
+    10px 32px;
+
+    border-radius:999px;
+
+    margin-bottom:10px;
+
+    box-shadow:
+    0 0 20px
+    rgba(250,204,21,.45);
 }
 
 
@@ -330,45 +393,70 @@ and
 (min-height:900px){
 
     .header{
-        padding:13px 10px;
+
+        padding:
+        13px 10px;
     }
 
+
     .college-logo{
+
         width:88px;
         height:88px;
     }
 
+
     .college-text h1{
+
         font-size:44px;
     }
 
+
     .college-text h2{
+
         font-size:19px;
     }
 
+
+    /* Notice একটু উপরে */
+
     .notice-box{
-        padding:12px 20px;
+
+        padding:
+        0 20px 10px;
+
+        align-items:flex-start;
     }
 
+
     .notice-card{
+
+        width:96%;
+
         max-width:1550px;
 
         padding:
         20px 32px 24px;
     }
 
+
     .badge{
+
         font-size:26px;
 
         padding:
         10px 32px;
     }
 
+
     #notice-heading{
+
         font-size:50px;
     }
 
+
     #notice{
+
         font-size:28px;
 
         min-height:145px;
@@ -384,43 +472,68 @@ and
 @media(max-width:768px){
 
     body{
+
         overflow:auto;
+
         height:auto;
+
         min-height:100vh;
     }
 
+
     .header{
-        padding:14px 10px;
+
+        padding:
+        14px 10px;
     }
 
+
     .college-top{
+
         flex-direction:column;
+
         gap:10px;
     }
 
+
     .college-text{
+
         text-align:center;
     }
 
+
     .college-logo{
+
         width:80px;
         height:80px;
     }
 
+
     .college-text h1{
+
         font-size:32px;
     }
 
+
     .college-text h2{
+
         font-size:15px;
+
         letter-spacing:3px;
     }
 
+
     .notice-box{
-        padding:15px;
+
+        padding:
+        15px;
+
+        align-items:center;
     }
 
+
     .notice-card{
+
         width:100%;
 
         padding:
@@ -429,7 +542,9 @@ and
         border-radius:20px;
     }
 
+
     .badge{
+
         font-size:20px;
 
         padding:
@@ -438,23 +553,35 @@ and
         margin-bottom:12px;
     }
 
+
     #notice-heading{
+
         font-size:30px;
+
         margin-bottom:10px;
     }
 
+
     #notice{
+
         font-size:20px;
+
         line-height:1.7;
+
         padding:18px;
+
         min-height:120px;
     }
 
+
     #date{
+
         font-size:20px;
     }
 
+
     .footer{
+
         flex-direction:column;
 
         gap:8px;
@@ -466,7 +593,9 @@ and
         padding:10px;
     }
 
+
     .bottom{
+
         font-size:18px;
     }
 
@@ -488,11 +617,13 @@ and
 
     <div class="college-top">
 
+
         <img
             src="logo.jpg"
             alt="College Logo"
             class="college-logo"
         >
+
 
         <div class="college-text">
 
@@ -500,11 +631,13 @@ and
                 Hazrat Shah Ali Mohila College
             </h1>
 
+
             <h2>
                 Mirpur-1, Dhaka, Bangladesh
             </h2>
 
         </div>
+
 
     </div>
 
@@ -518,21 +651,33 @@ and
 
 <div class="notice-box">
 
+
     <div class="notice-card">
 
+
         <div class="badge">
+
             📢 NOTICE
+
         </div>
+
 
         <div id="notice-heading">
+
             লোড হচ্ছে...
+
         </div>
+
 
         <div id="notice">
+
         </div>
 
+
         <div id="date">
+
         </div>
+
 
     </div>
 
@@ -546,23 +691,39 @@ and
 
 <div class="footer">
 
+
     <div>
+
         🕒
+
         <span id="clock">
+
             --:--:--
+
         </span>
+
     </div>
 
+
     <div>
+
         Hazrat Shah Ali Mohila College
+
     </div>
 
+
     <div>
+
         📅
+
         <span id="today">
+
             --
+
         </span>
+
     </div>
+
 
 </div>
 
@@ -582,12 +743,14 @@ and
 
 <script>
 
+
 /* =========================
    GOOGLE SHEET API
 ========================= */
 
 const API_URL =
 'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
+
 
 
 /* =========================
@@ -601,16 +764,21 @@ let current = 0;
 let noticeTimer = null;
 
 
+
 /* =========================
    LOAD NOTICES
 ========================= */
 
 function loadNotices(){
 
-    const callbackName = 'showNotices';
+
+    const callbackName =
+    'showNotices';
 
 
-    window[callbackName] = function(data){
+    window[callbackName] =
+    function(data){
+
 
         notices =
         Array.isArray(data)
@@ -624,32 +792,43 @@ function loadNotices(){
 
         if(notices.length === 0){
 
+
             document
-            .getElementById('notice-heading')
+            .getElementById(
+                'notice-heading'
+            )
             .innerText =
             'নোটিশ নেই';
 
 
             document
-            .getElementById('notice')
+            .getElementById(
+                'notice'
+            )
             .innerText =
             'বর্তমানে কোনো নতুন নোটিশ নেই';
 
 
             document
-            .getElementById('date')
+            .getElementById(
+                'date'
+            )
             .innerText =
             '';
 
+
             return;
+
         }
 
 
         current = 0;
 
+
         showNotice();
 
     };
+
 
 
     /* =====================
@@ -657,20 +836,27 @@ function loadNotices(){
     ===================== */
 
     const oldScript =
-    document.getElementById('noticeScript');
+    document.getElementById(
+        'noticeScript'
+    );
 
 
     if(oldScript){
+
         oldScript.remove();
+
     }
 
 
+
     /* =====================
-       CREATE NEW SCRIPT
+       CREATE SCRIPT
     ===================== */
 
     const script =
-    document.createElement('script');
+    document.createElement(
+        'script'
+    );
 
 
     script.id =
@@ -685,26 +871,35 @@ function loadNotices(){
     Date.now();
 
 
+
     /* =====================
        ERROR
     ===================== */
 
-    script.onerror = function(){
+    script.onerror =
+    function(){
+
 
         document
-        .getElementById('notice-heading')
+        .getElementById(
+            'notice-heading'
+        )
         .innerText =
         'সংযোগ সমস্যা';
 
 
         document
-        .getElementById('notice')
+        .getElementById(
+            'notice'
+        )
         .innerText =
         'নোটিশ লোড করা যাচ্ছে না';
 
 
         document
-        .getElementById('date')
+        .getElementById(
+            'date'
+        )
         .innerText =
         'ইন্টারনেট সংযোগ পরীক্ষা করুন';
 
@@ -713,9 +908,12 @@ function loadNotices(){
 
     document
     .body
-    .appendChild(script);
+    .appendChild(
+        script
+    );
 
 }
+
 
 
 /* =========================
@@ -724,6 +922,7 @@ function loadNotices(){
 
 function adjustHeadingSize(){
 
+
     const heading =
     document.getElementById(
         'notice-heading'
@@ -731,10 +930,16 @@ function adjustHeadingSize(){
 
 
     const length =
-    heading.innerText
+    heading
+    .innerText
     .trim()
     .length;
 
+
+
+    /* =====================
+       SMALL HEADING
+    ===================== */
 
     if(length <= 20){
 
@@ -743,12 +948,22 @@ function adjustHeadingSize(){
 
     }
 
+
+    /* =====================
+       MEDIUM
+    ===================== */
+
     else if(length <= 35){
 
         heading.style.fontSize =
         '45px';
 
     }
+
+
+    /* =====================
+       MEDIUM LARGE
+    ===================== */
 
     else if(length <= 50){
 
@@ -757,12 +972,22 @@ function adjustHeadingSize(){
 
     }
 
+
+    /* =====================
+       LARGE
+    ===================== */
+
     else if(length <= 70){
 
         heading.style.fontSize =
         '35px';
 
     }
+
+
+    /* =====================
+       VERY LARGE
+    ===================== */
 
     else{
 
@@ -774,19 +999,24 @@ function adjustHeadingSize(){
 }
 
 
+
 /* =========================
    SHOW NOTICE
 ========================= */
 
 function showNotice(){
 
+
     if(notices.length === 0){
+
         return;
+
     }
 
 
     const item =
     notices[current];
+
 
 
     /* =====================
@@ -806,6 +1036,7 @@ function showNotice(){
     adjustHeadingSize();
 
 
+
     /* =====================
        NOTICE TEXT
     ===================== */
@@ -820,6 +1051,7 @@ function showNotice(){
     item.notice || '';
 
 
+
     /* =====================
        DATE
     ===================== */
@@ -832,11 +1064,17 @@ function showNotice(){
 
     if(item.date){
 
+
         const d =
-        new Date(item.date);
+        new Date(
+            item.date
+        );
 
 
-        if(!isNaN(d.getTime())){
+        if(!isNaN(
+            d.getTime()
+        )){
+
 
             dateElement.innerText =
             '📅 তারিখ: ' +
@@ -852,7 +1090,9 @@ function showNotice(){
 
         }
 
+
         else{
+
 
             dateElement.innerText =
             '📅 তারিখ: ' +
@@ -862,7 +1102,9 @@ function showNotice(){
 
     }
 
+
     else{
+
 
         dateElement.innerText =
         '';
@@ -870,12 +1112,14 @@ function showNotice(){
     }
 
 
+
     /* =========================
        AUTOMATIC READING TIME
     ========================= */
 
     const text =
-    (item.notice || '').trim();
+    (item.notice || '')
+    .trim();
 
 
     const characters =
@@ -885,11 +1129,13 @@ function showNotice(){
     let seconds;
 
 
+
     if(characters <= 80){
 
         seconds = 5;
 
     }
+
 
     else if(characters <= 160){
 
@@ -897,11 +1143,13 @@ function showNotice(){
 
     }
 
+
     else if(characters <= 250){
 
         seconds = 12;
 
     }
+
 
     else if(characters <= 350){
 
@@ -909,11 +1157,13 @@ function showNotice(){
 
     }
 
+
     else if(characters <= 500){
 
         seconds = 20;
 
     }
+
 
     else if(characters <= 700){
 
@@ -921,11 +1171,13 @@ function showNotice(){
 
     }
 
+
     else{
 
         seconds = 30;
 
     }
+
 
 
     /* =========================
@@ -941,6 +1193,7 @@ function showNotice(){
     }
 
 
+
     /* =========================
        NEXT NOTICE
     ========================= */
@@ -949,7 +1202,9 @@ function showNotice(){
     setTimeout(
         function(){
 
+
             if(notices.length > 1){
+
 
                 current++;
 
@@ -968,11 +1223,13 @@ function showNotice(){
 
             }
 
+
         },
         seconds * 1000
     );
 
 }
+
 
 
 /* =========================
@@ -981,8 +1238,10 @@ function showNotice(){
 
 function updateClock(){
 
+
     const now =
     new Date();
+
 
 
     /* =====================
@@ -990,7 +1249,9 @@ function updateClock(){
     ===================== */
 
     document
-    .getElementById('clock')
+    .getElementById(
+        'clock'
+    )
     .innerText =
 
     now.toLocaleTimeString(
@@ -1001,12 +1262,15 @@ function updateClock(){
     );
 
 
+
     /* =====================
        TODAY
     ===================== */
 
     document
-    .getElementById('today')
+    .getElementById(
+        'today'
+    )
     .innerText =
 
     now.toLocaleDateString(
@@ -1022,6 +1286,7 @@ function updateClock(){
 }
 
 
+
 /* =========================
    START CLOCK
 ========================= */
@@ -1031,7 +1296,9 @@ setInterval(
     1000
 );
 
+
 updateClock();
+
 
 
 /* =========================
@@ -1039,6 +1306,7 @@ updateClock();
 ========================= */
 
 loadNotices();
+
 
 
 /* =========================
@@ -1050,6 +1318,7 @@ setInterval(
     loadNotices,
     30000
 );
+
 
 </script>
 
