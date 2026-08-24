@@ -181,6 +181,27 @@ body {
     box-shadow: inset 0 0 15px rgba(255,255,255,.04);
 }
 
+/* ---------- NOTICE IMAGE ---------- */
+
+#notice-image-container {
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto clamp(8px, .8vw, 16px);
+}
+
+#notice-image {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: clamp(180px, 22vw, 650px);
+    object-fit: contain;
+    border-radius: clamp(8px, .6vw, 18px);
+    border: 2px solid #d4af37;
+    box-shadow: 0 6px 24px rgba(15,23,42,.15);
+}
+
 #date {
     margin-top: 4px;
     color: #d9f99d;
@@ -373,6 +394,10 @@ body {
         line-height: 1.65;
     }
 
+    #notice-image {
+        max-height: 55vh;
+    }
+
     #date {
         font-size: clamp(15px, 4vw, 19px);
     }
@@ -430,7 +455,6 @@ body {
 }
 
 /* ---------- MOBILE LANDSCAPE ---------- */
-/* Deliberately no CSS zoom. */
 
 @media (max-width: 900px) and (orientation: landscape) {
     body {
@@ -498,6 +522,10 @@ body {
         font-size: 15px;
     }
 
+    #notice-image {
+        max-height: 35vh;
+    }
+
     .footer {
         min-height: 32px;
         height: 32px;
@@ -525,64 +553,96 @@ body {
 }
 
 
-/* FINAL WHITE / LIGHT THEME — layout and functionality unchanged */
+/* ---------- FINAL WHITE / LIGHT THEME ---------- */
+
 body {
     color: #172033;
     background: linear-gradient(180deg, #ffffff 0%, #f7fafc 55%, #eef3f7 100%);
 }
+
 .header {
     background: linear-gradient(90deg, #ffffff, #f8fafc, #ffffff);
     border-bottom-color: #d4af37;
     box-shadow: 0 2px 12px rgba(15,23,42,.08);
 }
+
 .college-logo {
     background: #fff;
     box-shadow: 0 2px 12px rgba(15,23,42,.12);
 }
+
 .college-text h1 {
     color: #123b2a;
     text-shadow: none;
 }
-.college-text h2 { color: #475569; }
+
+.college-text h2 {
+    color: #475569;
+}
+
 .notice-card {
     background: rgba(255,255,255,.96);
     border-color: #d9e2ec;
     box-shadow: 0 10px 35px rgba(15,23,42,.12);
     backdrop-filter: none;
 }
+
 .badge {
     color: #172033;
     background: linear-gradient(90deg, #f8d36a, #facc15);
     box-shadow: 0 3px 14px rgba(202,160,30,.22);
 }
+
 #notice-heading {
     color: #0f5132;
     text-shadow: none;
 }
+
 #notice {
     color: #1f2937;
     background: #f8fafc;
     border-color: #d9e2ec;
     box-shadow: inset 0 0 12px rgba(15,23,42,.025);
 }
-#date { color: #356b4f; }
+
+#notice-image {
+    background: #ffffff;
+    border-color: #c8a63a;
+}
+
+#date {
+    color: #356b4f;
+}
+
 .person-card {
     background: rgba(255,255,255,.96);
     border-color: rgba(180,145,45,.65);
     box-shadow: 0 6px 22px rgba(15,23,42,.12);
 }
+
 .person-photo {
     border-color: #c8a63a;
     box-shadow: 0 0 14px rgba(180,145,45,.22);
 }
-.person-name { color: #172033; }
-.person-title { color: #8a6810; }
-.person-sub { color: #356b4f; }
+
+.person-name {
+    color: #172033;
+}
+
+.person-title {
+    color: #8a6810;
+}
+
+.person-sub {
+    color: #356b4f;
+}
+
 .footer {
     color: #263244;
     background: #ffffff;
     border-top-color: #d4af37;
 }
+
 .bottom {
     color: #ffffff;
     background: linear-gradient(90deg, #0f5132, #18794e, #0f5132);
@@ -590,7 +650,6 @@ body {
 }
 
 </style>
-
 
 </head>
 
@@ -606,13 +665,11 @@ body {
 
     <div class="college-top">
 
-
         <img
             src="logo.jpg"
             alt="College Logo"
             class="college-logo"
         >
-
 
         <div class="college-text">
 
@@ -620,13 +677,11 @@ body {
                 Hazrat Shah Ali Mohila College
             </h1>
 
-
             <h2>
                 Mirpur-1, Dhaka, Bangladesh
             </h2>
 
         </div>
-
 
     </div>
 
@@ -640,39 +695,37 @@ body {
 
 <main class="notice-box">
 
-
     <section class="notice-card">
 
-
         <div class="badge">
-
             📢 NOTICE
-
         </div>
-
 
         <div id="notice-heading">
-
             লোড হচ্ছে...
-
         </div>
-
 
         <div id="notice">
-
         </div>
 
+        <!-- NOTICE IMAGE -->
+        <div id="notice-image-container">
+
+            <img
+                id="notice-image"
+                src=""
+                alt="Notice Image"
+            >
+
+        </div>
 
         <div id="date">
-
         </div>
-
 
     </section>
 
 
     <aside class="people-strip">
-
 
         <div class="person-card">
 
@@ -691,9 +744,10 @@ body {
             </div>
 
             <div class="person-sub">
-                
             </div>
-           কলেজ গভর্নিং বডি
+
+            কলেজ গভর্নিং বডি
+
         </div>
 
 
@@ -716,12 +770,12 @@ body {
             <div class="person-sub">
                 হযরত শাহ আলী মহিলা কলেজ ও
             </div>
-           সিন্ডিকেট সদস্য, জাতীয় বিশ্ববিদ্যালয়
+
+            সিন্ডিকেট সদস্য, জাতীয় বিশ্ববিদ্যালয়
+
         </div>
 
-
     </aside>
-
 
 </main>
 
@@ -733,10 +787,10 @@ body {
 
 <footer class="footer">
 
-
     <div>
 
         🕒
+
         <span id="clock">
             --:--:--
         </span>
@@ -745,21 +799,17 @@ body {
 
 
     <div class="footer-center">
-
         Hazrat Shah Ali Mohila College
-
     </div>
 
 
     <div>
 
-        
         <span id="today">
             --
         </span>
 
     </div>
-
 
 </footer>
 
@@ -777,14 +827,8 @@ body {
 
 
 
-
-
-
-</body>
-
-</html>
-
 <script>
+
 /* =====================================================
    GOOGLE SHEET API
 ===================================================== */
@@ -841,6 +885,12 @@ function loadNotices(){
             .getElementById('notice')
             .innerText =
             'বর্তমানে কোনো নতুন নোটিশ নেই';
+
+
+            document
+            .getElementById('notice-image-container')
+            .style.display =
+            'none';
 
 
             document
@@ -918,6 +968,12 @@ function loadNotices(){
 
 
         document
+        .getElementById('notice-image-container')
+        .style.display =
+        'none';
+
+
+        document
         .getElementById('date')
         .innerText =
         'ইন্টারনেট সংযোগ পরীক্ষা করুন';
@@ -949,43 +1005,57 @@ function adjustHeadingSize(){
     .trim()
     .length;
 
-    const vw = Math.min(window.innerWidth, 3840);
+    const vw =
+    Math.min(
+        window.innerWidth,
+        3840
+    );
 
     let size;
+
 
     if(vw <= 768){
 
         if(length <= 20)
-            size = 'clamp(24px, 7.5vw, 31px)';
+            size =
+            'clamp(24px, 7.5vw, 31px)';
 
         else if(length <= 35)
-            size = 'clamp(22px, 6.5vw, 29px)';
+            size =
+            'clamp(22px, 6.5vw, 29px)';
 
         else
-            size = 'clamp(19px, 5.7vw, 26px)';
+            size =
+            'clamp(19px, 5.7vw, 26px)';
 
     }
 
     else{
 
         if(length <= 20)
-            size = 'clamp(30px, 2.6vw, 70px)';
+            size =
+            'clamp(30px, 2.6vw, 70px)';
 
         else if(length <= 35)
-            size = 'clamp(28px, 2.3vw, 62px)';
+            size =
+            'clamp(28px, 2.3vw, 62px)';
 
         else if(length <= 50)
-            size = 'clamp(25px, 2vw, 54px)';
+            size =
+            'clamp(25px, 2vw, 54px)';
 
         else if(length <= 70)
-            size = 'clamp(22px, 1.75vw, 48px)';
+            size =
+            'clamp(22px, 1.75vw, 48px)';
 
         else
-            size = 'clamp(20px, 1.5vw, 42px)';
+            size =
+            'clamp(20px, 1.5vw, 42px)';
 
     }
 
-    heading.style.fontSize = size;
+    heading.style.fontSize =
+    size;
 
 }
 
@@ -1039,6 +1109,50 @@ function showNotice(){
 
     paragraph.innerText =
     item.notice || '';
+
+
+
+    /* ---------------------------------------------
+       NOTICE IMAGE
+    --------------------------------------------- */
+
+    const imageContainer =
+    document.getElementById(
+        'notice-image-container'
+    );
+
+
+    const image =
+    document.getElementById(
+        'notice-image'
+    );
+
+
+    const imageURL =
+    item.image
+    ? String(item.image).trim()
+    : '';
+
+
+    if(imageURL){
+
+        image.src =
+        imageURL;
+
+        imageContainer.style.display =
+        'flex';
+
+    }
+
+    else{
+
+        image.src =
+        '';
+
+        imageContainer.style.display =
+        'none';
+
+    }
 
 
 
@@ -1281,6 +1395,10 @@ setInterval(
     loadNotices,
     30000
 );
+
 </script>
+
+
 </body>
+
 </html>
