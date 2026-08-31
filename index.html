@@ -1,4 +1,276 @@
+akhon avabe ache
+
+Pasted text(1).txt
+Document
+eta ager html
+
+অবশ্যই। আপনার বর্তমান Google Sheet + আগের HTML-এর সাথে compatible করে নিচের Apps Script ব্যবহার করুন। আপনার HTML-এর ?callback=showNotices JSONP request-ও এটি support করবে।
+
+Apps Script — পুরোটা replace করুন
+function doGet(e) {
+
+  const sheet = SpreadsheetApp
+    .getActiveSpreadsheet()
+    .getSheets()[0];
+
+  const data = sheet.getDataRange().getValues();
+
+  let notices = [];
+
+  /*
+   * ==========================================
+   * EMPTY SHEET
+   * ==========================================
+   */
+
+  if (data.length >= 2) {
+
+    const headers = data[0].map(function(h) {
+      return String(h).trim().toLowerCase();
+    });
+
+    const headingIndex = headers.indexOf('heading');
+    const noticeIndex  = headers.indexOf('notice');
+    const dateIndex    = headers.indexOf('date');
+    const imageIndex   = headers.indexOf('image');
+
+    /*
+     * ==========================================
+     * READ EVERY ROW
+     * ==========================================
+     */
+
+    for (let i = 1; i < data.length; i++) {
+
+      const row = data[i];
+
+      const heading =
+        headingIndex >= 0
+          ? String(row[headingIndex] || '').trim()
+          : '';
+
+      const notice =
+        noticeIndex >= 0
+          ? String(row[noticeIndex] || '').trim()
+          : '';
+
+      let image =
+        imageIndex >= 0
+          ? String(row[imageIndex] || '').trim()
+          : '';
+
+      const date =
+        dateIndex >= 0
+          ? row[dateIndex]
+          : '';
+
+      /*
+       * ==========================================
+       * GOOGLE DRIVE IMAGE
+       * Convert Drive link → thumbnail
+       * ==========================================
+       */
+
+      if (image) {
+
+        let match = image.match(
+          /drive\.google\.com\/file\/d\/([^/]+)/
+        );
+
+        /*
+         * https://drive.google.com/open?id=FILE_ID
+         */
+
+        if (!match) {
+          match = image.match(
+            /drive\.google\.com\/open\?id=([^&]+)/
+          );
+        }
+
+        /*
+         * https://drive.google.com/uc?id=FILE_ID
+         */
+
+        if (!match) {
+          match = image.match(
+            /drive\.google\.com\/uc\?id=([^&]+)/
+          );
+        }
+
+        /*
+         * https://drive.google.com/thumbnail?id=FILE_ID
+         */
+
+        if (!match) {
+          match = image.match(
+            /drive\.google\.com\/thumbnail\?id=([^&]+)/
+          );
+        }
+
+        if (match) {
+
+          const fileId = match[1];
+
+          image =
+            'https://drive.google.com/thumbnail?id=' +
+            encodeURIComponent(fileId) +
+            '&sz=w2000';
+        }
+      }
+
+      /*
+       * ==========================================
+       * SKIP COMPLETELY EMPTY ROW
+       * ==========================================
+       */
+
+      if (!heading && !notice && !image) {
+        continue;
+      }
+
+      /*
+       * ==========================================
+       * ADD NOTICE
+       * ==========================================
+       */
+
+      notices.push({
+        heading: heading,
+        notice: notice,
+        image: image,
+        date: date
+      });
+    }
+  }
+
+  /*
+   * ==========================================
+   * JSON OUTPUT
+   * ==========================================
+   */
+
+  const json = JSON.stringify(notices);
+
+  /*
+   * ==========================================
+   * JSONP SUPPORT
+   *
+   * Your old HTML sends:
+   *
+   * ?callback=showNotices
+   *
+   * ==========================================
+   */
+
+  const callback =
+    e &&
+    e.parameter &&
+    e.parameter.callback
+      ? String(e.parameter.callback)
+      : '';
+
+  /*
+   * Allow only a safe JavaScript function name.
+   */
+
+  if (
+    callback &&
+    /^[A-Za-z_$][0-9A-Za-z_$]*(\.[A-Za-z_$][0-9A-Za-z_$]*)*$/
+      .test(callback)
+  ) {
+
+    return ContentService
+      .createTextOutput(
+        callback + '(' + json + ');'
+      )
+      .setMimeType(
+        ContentService.MimeType.JAVASCRIPT
+      );
+  }
+
+  /*
+   * ==========================================
+   * NORMAL JSON REQUEST
+   * ==========================================
+   */
+
+  return ContentService
+    .createTextOutput(json)
+    .setMimeType(
+      ContentService.MimeType.JSON
+    );
+}
+এরপর কী করবেন
+
+১. Apps Script-এ আগের code পুরোটা delete করুন।
+
+২. উপরের code paste করুন → Save করুন।
+
+৩. তারপর Deploy → Manage deployments
+
+যদি আগের Web App deployment থাকে, সেটার Edit করে নতুন version হিসেবে deploy করুন।
+
+Settings:
+
+Execute as: Me
+Who has access: Anyone
+
+৪. আপনার HTML-এ API URL এখন যেটা আছে, সেটা আপাতত পরিবর্তন করবেন না।
+
+আপনার HTML-এ বর্তমানে এই URL আছে:
+
+const API_URL =
+'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
+
+তবে নতুন deployment করলে নতুন /exec URL পেলে ওই URL-টাই HTML-এর API_URL-এ বসাতে হবে।
+
+তারপর আপনার পুরোনো HTML-এর notice rotation, date, image সব আগের মতোই চলবে।
+
+এখন Apps Script deploy করার পর /exec URL-টা আমাকে দিলে আমি বলে দেব URLটা ঠিকমতো JSON/JSONP দিচ্ছে কি না—তারপর আর কী করতে হবে সেটা এক ধাপে করব।
+
+Development ID: AKfycbyB7wcOoj99szlMTOf5oijdv_46ACWZm0AIbUdOM8UHTQvDNyg6ZWflSC0R8VPDeGCrWeb app: https://script.google.com/macros/s/AKfycbyB7wcOoj99szlMTOf5oijdv_46ACWZm0AIbUdOM8UHTQvDNyg6ZWflSC0R8VPDeGCr/exec
+
+হ্যাঁ, নতুন Web App URL ঠিকভাবে পেয়েছি। এখন আপনার HTML-এ শুধু পুরোনো API URL-এর জায়গায় এই নতুন URL বসাতে হবে।
+
+আপনার HTML-এ বর্তমানে আছে:
+
+const API_URL =
+'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec';
+
+এটা পুরোটা মুছে দিন এবং এটা বসান:
+
+const API_URL =
+'https://script.google.com/macros/s/AKfycbyB7wcOoj99szlMTOf5oijdv_46ACWZm0AIbUdOM8UHTQvDNyg6ZWflSC0R8VPDeGCr/exec';
+তারপর
+HTML Save করুন।
+Website আবার reload করুন।
+Google Sheet-এর noticeগুলো website-এ আসার কথা।
+আপনার HTML প্রতি ৩০ সেকেন্ডে নতুন notice data আবার নেয়—এই ব্যবস্থা আগের code-এই আছে।
+
+আর কিছু এখন পরিবর্তন করবেন না।
+
+যদি reload করার পর “সংযোগ সমস্যা” বা “নোটিশ নেই” দেখায়, তখন website-এর screenshot দিন—সেখান থেকেই পরের সমস্যাটা ধরব।
+
+Pasted text(2).txt
+Document
+tumi reples kore deo
+
+হ্যাঁ, করে দিয়েছি। আপনার HTML-এর পুরোনো API URL-এর জায়গায় নতুন Web App URL বসিয়ে ফাইল তৈরি করেছি। মূল HTML-এর বাকি অংশ পরিবর্তন করিনি।
+
+👉 
+Updated HTML ফাইলটি নিন
+
+এখন এই নতুন HTML ফাইলটাই ব্যবহার করবেন।
+
+পরের ধাপ: ফাইলটা খুলে দেখুন। যদি notice না আসে, আমাকে শুধু screenshot দিন—তারপর আমরা Apps Script-এর deployment/access সেটিংসটা পরীক্ষা করব। 
+
+College_Notice_Board_Updated.html
+HTML
+
+kokichu 
+
 <!DOCTYPE html>
+
 <html lang="bn">
 
 <head>
@@ -9,1396 +281,182 @@
 
 <title>Hazrat Shah Ali Mohila College</title>
 
-
-<style>
-
-/* =========================================================
-   CLEAN RESPONSIVE CSS
-   Mobile + Tablet + Desktop + 4K TV
-   ========================================================= */
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-html {
-    width: 100%;
-    min-width: 0;
-    font-size: 16px;
-}
-
-body {
-    width: 100%;
-    min-width: 0;
-    min-height: 100vh;
-    margin: 0;
-    overflow-x: hidden;
-    color: #fff;
-    font-family: Arial, "Noto Sans Bengali", "SolaimanLipi", sans-serif;
-    background:
-        linear-gradient(
-            180deg,
-            #065f46 0%,
-            #001a2f 35%,
-            #000814 100%
-        );
-}
-
-/* ---------- HEADER ---------- */
-
-.header {
-    width: 100%;
-    flex: 0 0 auto;
-    padding: clamp(8px, 0.7vw, 20px) clamp(10px, 1.2vw, 42px);
-    background:
-        linear-gradient(
-            90deg,
-            #064e3b,
-            #047857,
-            #064e3b
-        );
-    border-bottom: clamp(2px, 0.15vw, 4px) solid #d4af37;
-}
-
-.college-top {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(10px, 1.2vw, 34px);
-}
-
-.college-logo {
-    width: clamp(58px, 4.6vw, 125px);
-    height: clamp(58px, 4.6vw, 125px);
-    flex: 0 0 auto;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 50%;
-    padding: clamp(3px, 0.2vw, 6px);
-    box-shadow: 0 0 18px rgba(255,255,255,.45);
-}
-
-.college-text {
-    min-width: 0;
-    text-align: left;
-}
-
-.college-text h1 {
-    margin: 0;
-    color: #fff;
-    font-size: clamp(28px, 3vw, 72px);
-    font-weight: 700;
-    line-height: 1.1;
-    text-shadow: 0 2px 6px rgba(0,0,0,.35);
-}
-
-.college-text h2 {
-    margin: clamp(4px, .35vw, 8px) 0 0;
-    color: #ecfdf5;
-    font-size: clamp(12px, 1.05vw, 28px);
-    font-weight: 700;
-    letter-spacing: clamp(1px, .25vw, 6px);
-}
-
-/* ---------- MAIN ---------- */
-
-.notice-box {
-    width: 100%;
-    flex: 1 1 auto;
-    min-height: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: center;
-    gap: clamp(10px, 1.2vw, 34px);
-    padding: clamp(8px, 1vw, 28px) clamp(10px, 1.4vw, 45px);
-}
-
-.notice-card {
-    min-width: 0;
-    flex: 1 1 auto;
-    align-self: center;
-    max-width: none;
-    padding:
-        clamp(14px, 1.4vw, 40px)
-        clamp(14px, 2vw, 55px)
-        clamp(18px, 1.7vw, 45px);
-    text-align: center;
-    background: rgba(0,10,40,.94);
-    border: 2px solid rgba(255,255,255,.16);
-    border-radius: clamp(14px, 1vw, 30px);
-    box-shadow: 0 10px 40px rgba(0,0,0,.55);
-    backdrop-filter: blur(4px);
-}
-
-.badge {
-    display: inline-block;
-    margin-bottom: clamp(7px, .6vw, 15px);
-    padding: clamp(6px, .55vw, 15px) clamp(18px, 1.6vw, 42px);
-    color: #111827;
-    font-size: clamp(18px, 1.35vw, 34px);
-    font-weight: 800;
-    line-height: 1.2;
-    background: linear-gradient(90deg, #f59e0b, #facc15);
-    border-radius: 999px;
-    box-shadow: 0 0 20px rgba(250,204,21,.45);
-}
-
-#notice-heading {
-    width: 100%;
-    max-width: none;
-    margin: 0 auto clamp(6px, .7vw, 18px);
-    color: #facc15;
-    font-size: clamp(26px, 2.6vw, 70px);
-    font-weight: 800;
-    line-height: 1.2;
-    text-align: center;
-    overflow-wrap: anywhere;
-    text-shadow: 0 2px 10px rgba(0,0,0,.55);
-}
-
-#notice {
-    width: 100%;
-    max-width: none;
-    min-height: clamp(90px, 8vw, 260px);
-    margin: 0 auto clamp(8px, .8vw, 16px);
-    padding: clamp(14px, 1.4vw, 38px) clamp(14px, 1.8vw, 50px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #f8fafc;
-    font-size: clamp(18px, 1.45vw, 40px);
-    font-weight: 600;
-    line-height: 1.5;
-    text-align: center;
-    overflow-wrap: anywhere;
-    background: rgba(255,255,255,.055);
-    border: 2px solid rgba(255,255,255,.15);
-    border-radius: clamp(14px, .8vw, 22px);
-    box-shadow: inset 0 0 15px rgba(255,255,255,.04);
-}
-
-/* ---------- NOTICE IMAGE ---------- */
-
-#notice-image-container {
-    width: 100%;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto clamp(8px, .8vw, 16px);
-}
-
-#notice-image {
-    display: block;
-    width: auto;
-    max-width: 100%;
-    max-height: clamp(180px, 22vw, 650px);
-    object-fit: contain;
-    border-radius: clamp(8px, .6vw, 18px);
-    border: 2px solid #d4af37;
-    box-shadow: 0 6px 24px rgba(15,23,42,.15);
-}
-
-#date {
-    margin-top: 4px;
-    color: #d9f99d;
-    font-size: clamp(16px, 1.15vw, 30px);
-    font-weight: 700;
-}
-
-/* ---------- PEOPLE ---------- */
-
-.people-strip {
-    flex: 0 0 clamp(180px, 15vw, 420px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(10px, 1vw, 28px);
-}
-
-.person-card {
-    width: 100%;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: clamp(10px, .9vw, 25px);
-    background: rgba(0,10,40,.85);
-    border: 2px solid rgba(212,175,55,.55);
-    border-radius: clamp(12px, .8vw, 24px);
-    box-shadow: 0 6px 22px rgba(0,0,0,.45);
-}
-
-.person-photo {
-    width: clamp(70px, 8vw, 220px);
-    height: clamp(70px, 8vw, 220px);
-    object-fit: cover;
-    border-radius: 50%;
-    border: clamp(2px, .2vw, 4px) solid #d4af37;
-    box-shadow: 0 0 18px rgba(212,175,55,.55);
-}
-
-.person-name {
-    margin-top: clamp(7px, .6vw, 14px);
-    color: #fff;
-    font-size: clamp(12px, 1vw, 27px);
-    font-weight: 800;
-    line-height: 1.25;
-    overflow-wrap: anywhere;
-}
-
-.person-title {
-    margin-top: 4px;
-    color: #facc15;
-    font-size: clamp(10px, .8vw, 22px);
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-.person-sub {
-    color: #d9f99d;
-    font-size: clamp(9px, .7vw, 19px);
-    font-weight: 500;
-    line-height: 1.3;
-}
-
-/* ---------- FOOTER ---------- */
-
-.footer {
-    width: 100%;
-    flex: 0 0 auto;
-    min-height: clamp(42px, 4vw, 85px);
-    padding: 0 clamp(10px, 1.5vw, 40px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    color: #fff;
-    font-size: clamp(13px, 1.05vw, 28px);
-    font-weight: 600;
-    text-align: center;
-    background: #00112b;
-    border-top: 2px solid #d4af37;
-}
-
-.footer-center {
-    font-weight: 700;
-}
-
-.bottom {
-    width: 100%;
-    min-height: clamp(36px, 3.2vw, 70px);
-    padding: 6px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: clamp(14px, 1.15vw, 30px);
-    font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: .5px;
-    text-align: center;
-    background: linear-gradient(90deg, #065f46, #047857, #065f46);
-    border-top: 2px solid #d4af37;
-}
-
-/* ---------- TABLET ---------- */
-
-@media (min-width: 769px) and (max-width: 1200px) {
-    .people-strip {
-        flex-basis: 190px;
-    }
-
-    .person-photo {
-        width: 100px;
-        height: 100px;
-    }
-
-    .college-text h1 {
-        font-size: clamp(28px, 4vw, 44px);
-    }
-}
-
-/* ---------- MOBILE PORTRAIT ---------- */
-
-@media (max-width: 768px) {
-    body {
-        min-height: 100vh;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-
-    .header {
-        padding: 12px 10px;
-    }
-
-    .college-top {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .college-text {
-        width: 100%;
-        text-align: center;
-    }
-
-    .college-logo {
-        width: 72px;
-        height: 72px;
-    }
-
-    .college-text h1 {
-        font-size: clamp(23px, 7vw, 32px);
-        line-height: 1.2;
-    }
-
-    .college-text h2 {
-        font-size: clamp(11px, 3.4vw, 15px);
-        letter-spacing: 1.5px;
-    }
-
-    .notice-box {
-        flex: none;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 12px 10px 16px;
-        gap: 12px;
-    }
-
-    .notice-card {
-        width: 100%;
-        flex: none;
-        order: 1;
-        padding: 16px 12px 20px;
-    }
-
-    .badge {
-        font-size: clamp(17px, 5vw, 21px);
-        padding: 7px 18px;
-    }
-
-    #notice-heading {
-        font-size: clamp(24px, 7.5vw, 31px);
-        line-height: 1.25;
-    }
-
-    #notice {
-        min-height: 110px;
-        padding: 14px 10px;
-        font-size: clamp(16px, 4.8vw, 20px);
-        line-height: 1.65;
-    }
-
-    #notice-image {
-        max-height: 55vh;
-    }
-
-    #date {
-        font-size: clamp(15px, 4vw, 19px);
-    }
-
-    .people-strip {
-        width: 100%;
-        flex: none;
-        order: 2;
-        flex-direction: row;
-        align-items: stretch;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 0;
-    }
-
-    .person-card {
-        width: calc(50% - 4px);
-        max-width: 190px;
-        flex: 1 1 0;
-        padding: 10px 6px;
-    }
-
-    .person-photo {
-        width: clamp(62px, 20vw, 85px);
-        height: clamp(62px, 20vw, 85px);
-    }
-
-    .person-name {
-        font-size: clamp(11px, 3.2vw, 14px);
-    }
-
-    .person-title {
-        font-size: clamp(9px, 2.8vw, 12px);
-    }
-
-    .person-sub {
-        font-size: clamp(8px, 2.4vw, 10px);
-    }
-
-    .footer {
-        min-height: 78px;
-        height: auto;
-        padding: 10px 8px;
-        flex-direction: column;
-        gap: 6px;
-        font-size: clamp(12px, 3.5vw, 16px);
-    }
-
-    .bottom {
-        min-height: 42px;
-        height: auto;
-        padding: 8px;
-        font-size: clamp(13px, 4vw, 18px);
-    }
-}
-
-/* ---------- MOBILE LANDSCAPE ---------- */
-
-@media (max-width: 900px) and (orientation: landscape) {
-    body {
-        min-height: 100vh;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-
-    .header {
-        padding: 6px 10px;
-    }
-
-    .college-top {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .college-logo {
-        width: 52px;
-        height: 52px;
-    }
-
-    .college-text {
-        text-align: left;
-    }
-
-    .college-text h1 {
-        font-size: 24px;
-    }
-
-    .college-text h2 {
-        font-size: 10px;
-    }
-
-    .notice-box {
-        flex-direction: row;
-        padding: 8px;
-    }
-
-    .notice-card {
-        padding: 10px;
-    }
-
-    .people-strip {
-        flex-basis: 120px;
-        flex-direction: column;
-    }
-
-    .person-card {
-        max-width: 120px;
-    }
-
-    .person-photo {
-        width: 55px;
-        height: 55px;
-    }
-
-    #notice-heading {
-        font-size: 24px;
-    }
-
-    #notice {
-        min-height: 65px;
-        padding: 8px;
-        font-size: 15px;
-    }
-
-    #notice-image {
-        max-height: 35vh;
-    }
-
-    .footer {
-        min-height: 32px;
-        height: 32px;
-        padding: 0 8px;
-        flex-direction: row;
-        font-size: 10px;
-    }
-
-    .bottom {
-        min-height: 26px;
-        height: 26px;
-        padding: 2px;
-        font-size: 11px;
-    }
-}
-
-/* ---------- 4K TV ---------- */
-
-@media (min-width: 2560px) {
-    .notice-box {
-        max-width: 3840px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-
-/* ---------- FINAL WHITE / LIGHT THEME ---------- */
-
-body {
-    color: #172033;
-    background: linear-gradient(180deg, #ffffff 0%, #f7fafc 55%, #eef3f7 100%);
-}
-
-.header {
-    background: linear-gradient(90deg, #ffffff, #f8fafc, #ffffff);
-    border-bottom-color: #d4af37;
-    box-shadow: 0 2px 12px rgba(15,23,42,.08);
-}
-
-.college-logo {
-    background: #fff;
-    box-shadow: 0 2px 12px rgba(15,23,42,.12);
-}
-
-.college-text h1 {
-    color: #123b2a;
-    text-shadow: none;
-}
-
-.college-text h2 {
-    color: #475569;
-}
-
-.notice-card {
-    background: rgba(255,255,255,.96);
-    border-color: #d9e2ec;
-    box-shadow: 0 10px 35px rgba(15,23,42,.12);
-    backdrop-filter: none;
-}
-
-.badge {
-    color: #172033;
-    background: linear-gradient(90deg, #f8d36a, #facc15);
-    box-shadow: 0 3px 14px rgba(202,160,30,.22);
-}
-
-#notice-heading {
-    color: #0f5132;
-    text-shadow: none;
-}
-
-#notice {
-    color: #1f2937;
-    background: #f8fafc;
-    border-color: #d9e2ec;
-    box-shadow: inset 0 0 12px rgba(15,23,42,.025);
-}
-
-#notice-image {
-    background: #ffffff;
-    border-color: #c8a63a;
-}
-
-#date {
-    color: #356b4f;
-}
-
-.person-card {
-    background: rgba(255,255,255,.96);
-    border-color: rgba(180,145,45,.65);
-    box-shadow: 0 6px 22px rgba(15,23,42,.12);
-}
-
-.person-photo {
-    border-color: #c8a63a;
-    box-shadow: 0 0 14px rgba(180,145,45,.22);
-}
-
-.person-name {
-    color: #172033;
-}
-
-.person-title {
-    color: #8a6810;
-}
-
-.person-sub {
-    color: #356b4f;
-}
-
-.footer {
-    color: #263244;
-    background: #ffffff;
-    border-top-color: #d4af37;
-}
-
-.bottom {
-    color: #ffffff;
-    background: linear-gradient(90deg, #0f5132, #18794e, #0f5132);
-    border-top-color: #d4af37;
-}
-
-</style>
+<style> /* ========================================================= CLEAN RESPONSIVE CSS Mobile + Tablet + Desktop + 4K TV ========================================================= */ *, *::before, *::after { box-sizing: border-box; } html { width: 100%; min-width: 0; font-size: 16px; } body { width: 100%; min-width: 0; min-height: 100vh; margin: 0; overflow-x: hidden; color: #fff; font-family: Arial, "Noto Sans Bengali", "SolaimanLipi", sans-serif; background: linear-gradient( 180deg, #065f46 0%, #001a2f 35%, #000814 100% ); } /* ---------- HEADER ---------- */ .header { width: 100%; flex: 0 0 auto; padding: clamp(8px, 0.7vw, 20px) clamp(10px, 1.2vw, 42px); background: linear-gradient( 90deg, #064e3b, #047857, #064e3b ); border-bottom: clamp(2px, 0.15vw, 4px) solid #d4af37; } .college-top { width: 100%; display: flex; justify-content: center; align-items: center; gap: clamp(10px, 1.2vw, 34px); } .college-logo { width: clamp(58px, 4.6vw, 125px); height: clamp(58px, 4.6vw, 125px); flex: 0 0 auto; object-fit: contain; background: #fff; border-radius: 50%; padding: clamp(3px, 0.2vw, 6px); box-shadow: 0 0 18px rgba(255,255,255,.45); } .college-text { min-width: 0; text-align: left; } .college-text h1 { margin: 0; color: #fff; font-size: clamp(28px, 3vw, 72px); font-weight: 700; line-height: 1.1; text-shadow: 0 2px 6px rgba(0,0,0,.35); } .college-text h2 { margin: clamp(4px, .35vw, 8px) 0 0; color: #ecfdf5; font-size: clamp(12px, 1.05vw, 28px); font-weight: 700; letter-spacing: clamp(1px, .25vw, 6px); } /* ---------- MAIN ---------- */ .notice-box { width: 100%; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: row; align-items: stretch; justify-content: center; gap: clamp(10px, 1.2vw, 34px); padding: clamp(8px, 1vw, 28px) clamp(10px, 1.4vw, 45px); } .notice-card { min-width: 0; flex: 1 1 auto; align-self: center; max-width: none; padding: clamp(14px, 1.4vw, 40px) clamp(14px, 2vw, 55px) clamp(18px, 1.7vw, 45px); text-align: center; background: rgba(0,10,40,.94); border: 2px solid rgba(255,255,255,.16); border-radius: clamp(14px, 1vw, 30px); box-shadow: 0 10px 40px rgba(0,0,0,.55); backdrop-filter: blur(4px); } .badge { display: inline-block; margin-bottom: clamp(7px, .6vw, 15px); padding: clamp(6px, .55vw, 15px) clamp(18px, 1.6vw, 42px); color: #111827; font-size: clamp(18px, 1.35vw, 34px); font-weight: 800; line-height: 1.2; background: linear-gradient(90deg, #f59e0b, #facc15); border-radius: 999px; box-shadow: 0 0 20px rgba(250,204,21,.45); } #notice-heading { width: 100%; max-width: none; margin: 0 auto clamp(6px, .7vw, 18px); color: #facc15; font-size: clamp(26px, 2.6vw, 70px); font-weight: 800; line-height: 1.2; text-align: center; overflow-wrap: anywhere; text-shadow: 0 2px 10px rgba(0,0,0,.55); } #notice { width: 100%; max-width: none; min-height: clamp(90px, 8vw, 260px); margin: 0 auto clamp(8px, .8vw, 16px); padding: clamp(14px, 1.4vw, 38px) clamp(14px, 1.8vw, 50px); display: flex; align-items: center; justify-content: center; color: #f8fafc; font-size: clamp(18px, 1.45vw, 40px); font-weight: 600; line-height: 1.5; text-align: center; overflow-wrap: anywhere; background: rgba(255,255,255,.055); border: 2px solid rgba(255,255,255,.15); border-radius: clamp(14px, .8vw, 22px); box-shadow: inset 0 0 15px rgba(255,255,255,.04); } /* ---------- NOTICE IMAGE ---------- */ #notice-image-container { width: 100%; display: none; justify-content: center; align-items: center; margin: 0 auto clamp(8px, .8vw, 16px); } #notice-image { display: block; width: auto; max-width: 100%; max-height: clamp(180px, 22vw, 650px); object-fit: contain; border-radius: clamp(8px, .6vw, 18px); border: 2px solid #d4af37; box-shadow: 0 6px 24px rgba(15,23,42,.15); } #date { margin-top: 4px; color: #d9f99d; font-size: clamp(16px, 1.15vw, 30px); font-weight: 700; } /* ---------- PEOPLE ---------- */ .people-strip { flex: 0 0 clamp(180px, 15vw, 420px); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: clamp(10px, 1vw, 28px); } .person-card { width: 100%; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(10px, .9vw, 25px); background: rgba(0,10,40,.85); border: 2px solid rgba(212,175,55,.55); border-radius: clamp(12px, .8vw, 24px); box-shadow: 0 6px 22px rgba(0,0,0,.45); } .person-photo { width: clamp(70px, 8vw, 220px); height: clamp(70px, 8vw, 220px); object-fit: cover; border-radius: 50%; border: clamp(2px, .2vw, 4px) solid #d4af37; box-shadow: 0 0 18px rgba(212,175,55,.55); } .person-name { margin-top: clamp(7px, .6vw, 14px); color: #fff; font-size: clamp(12px, 1vw, 27px); font-weight: 800; line-height: 1.25; overflow-wrap: anywhere; } .person-title { margin-top: 4px; color: #facc15; font-size: clamp(10px, .8vw, 22px); font-weight: 600; line-height: 1.3; } .person-sub { color: #d9f99d; font-size: clamp(9px, .7vw, 19px); font-weight: 500; line-height: 1.3; } /* ---------- FOOTER ---------- */ .footer { width: 100%; flex: 0 0 auto; min-height: clamp(42px, 4vw, 85px); padding: 0 clamp(10px, 1.5vw, 40px); display: flex; justify-content: space-between; align-items: center; gap: 10px; color: #fff; font-size: clamp(13px, 1.05vw, 28px); font-weight: 600; text-align: center; background: #00112b; border-top: 2px solid #d4af37; } .footer-center { font-weight: 700; } .bottom { width: 100%; min-height: clamp(36px, 3.2vw, 70px); padding: 6px 10px; display: flex; justify-content: center; align-items: center; color: #fff; font-size: clamp(14px, 1.15vw, 30px); font-weight: 700; line-height: 1.3; letter-spacing: .5px; text-align: center; background: linear-gradient(90deg, #065f46, #047857, #065f46); border-top: 2px solid #d4af37; } /* ---------- TABLET ---------- */ @media (min-width: 769px) and (max-width: 1200px) { .people-strip { flex-basis: 190px; } .person-photo { width: 100px; height: 100px; } .college-text h1 { font-size: clamp(28px, 4vw, 44px); } } /* ---------- MOBILE PORTRAIT ---------- */ @media (max-width: 768px) { body { min-height: 100vh; overflow-x: hidden; overflow-y: auto; } .header { padding: 12px 10px; } .college-top { flex-direction: column; gap: 8px; } .college-text { width: 100%; text-align: center; } .college-logo { width: 72px; height: 72px; } .college-text h1 { font-size: clamp(23px, 7vw, 32px); line-height: 1.2; } .college-text h2 { font-size: clamp(11px, 3.4vw, 15px); letter-spacing: 1.5px; } .notice-box { flex: none; flex-direction: column; align-items: stretch; padding: 12px 10px 16px; gap: 12px; } .notice-card { width: 100%; flex: none; order: 1; padding: 16px 12px 20px; } .badge { font-size: clamp(17px, 5vw, 21px); padding: 7px 18px; } #notice-heading { font-size: clamp(24px, 7.5vw, 31px); line-height: 1.25; } #notice { min-height: 110px; padding: 14px 10px; font-size: clamp(16px, 4.8vw, 20px); line-height: 1.65; } #notice-image { max-height: 55vh; } #date { font-size: clamp(15px, 4vw, 19px); } .people-strip { width: 100%; flex: none; order: 2; flex-direction: row; align-items: stretch; justify-content: center; gap: 8px; margin-top: 0; } .person-card { width: calc(50% - 4px); max-width: 190px; flex: 1 1 0; padding: 10px 6px; } .person-photo { width: clamp(62px, 20vw, 85px); height: clamp(62px, 20vw, 85px); } .person-name { font-size: clamp(11px, 3.2vw, 14px); } .person-title { font-size: clamp(9px, 2.8vw, 12px); } .person-sub { font-size: clamp(8px, 2.4vw, 10px); } .footer { min-height: 78px; height: auto; padding: 10px 8px; flex-direction: column; gap: 6px; font-size: clamp(12px, 3.5vw, 16px); } .bottom { min-height: 42px; height: auto; padding: 8px; font-size: clamp(13px, 4vw, 18px); } } /* ---------- MOBILE LANDSCAPE ---------- */ @media (max-width: 900px) and (orientation: landscape) { body { min-height: 100vh; overflow-x: hidden; overflow-y: auto; } .header { padding: 6px 10px; } .college-top { flex-direction: row; gap: 10px; } .college-logo { width: 52px; height: 52px; } .college-text { text-align: left; } .college-text h1 { font-size: 24px; } .college-text h2 { font-size: 10px; } .notice-box { flex-direction: row; padding: 8px; } .notice-card { padding: 10px; } .people-strip { flex-basis: 120px; flex-direction: column; } .person-card { max-width: 120px; } .person-photo { width: 55px; height: 55px; } #notice-heading { font-size: 24px; } #notice { min-height: 65px; padding: 8px; font-size: 15px; } #notice-image { max-height: 35vh; } .footer { min-height: 32px; height: 32px; padding: 0 8px; flex-direction: row; font-size: 10px; } .bottom { min-height: 26px; height: 26px; padding: 2px; font-size: 11px; } } /* ---------- 4K TV ---------- */ @media (min-width: 2560px) { .notice-box { max-width: 3840px; margin-left: auto; margin-right: auto; } } /* ---------- FINAL WHITE / LIGHT THEME ---------- */ body { color: #172033; background: linear-gradient(180deg, #ffffff 0%, #f7fafc 55%, #eef3f7 100%); } .header { background: linear-gradient(90deg, #ffffff, #f8fafc, #ffffff); border-bottom-color: #d4af37; box-shadow: 0 2px 12px rgba(15,23,42,.08); } .college-logo { background: #fff; box-shadow: 0 2px 12px rgba(15,23,42,.12); } .college-text h1 { color: #123b2a; text-shadow: none; } .college-text h2 { color: #475569; } .notice-card { background: rgba(255,255,255,.96); border-color: #d9e2ec; box-shadow: 0 10px 35px rgba(15,23,42,.12); backdrop-filter: none; } .badge { color: #172033; background: linear-gradient(90deg, #f8d36a, #facc15); box-shadow: 0 3px 14px rgba(202,160,30,.22); } #notice-heading { color: #0f5132; text-shadow: none; } #notice { color: #1f2937; background: #f8fafc; border-color: #d9e2ec; box-shadow: inset 0 0 12px rgba(15,23,42,.025); } #notice-image { background: #ffffff; border-color: #c8a63a; } #date { color: #356b4f; } .person-card { background: rgba(255,255,255,.96); border-color: rgba(180,145,45,.65); box-shadow: 0 6px 22px rgba(15,23,42,.12); } .person-photo { border-color: #c8a63a; box-shadow: 0 0 14px rgba(180,145,45,.22); } .person-name { color: #172033; } .person-title { color: #8a6810; } .person-sub { color: #356b4f; } .footer { color: #263244; background: #ffffff; border-top-color: #d4af37; } .bottom { color: #ffffff; background: linear-gradient(90deg, #0f5132, #18794e, #0f5132); border-top-color: #d4af37; } </style>
 
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<!-- ===================================================== HEADER ===================================================== -->
 
 <header class="header">
 
-    <div class="college-top">
+<div class="college-top">
 
-        <img
-            src="logo.jpg"
-            alt="College Logo"
-            class="college-logo"
-        >
+    <img
+        src="logo.jpg"
+        alt="College Logo"
+        class="college-logo"
+    >
 
-        <div class="college-text">
+    <div class="college-text">
 
-            <h1>
-                Hazrat Shah Ali Mohila College
-            </h1>
+        <h1>
+            Hazrat Shah Ali Mohila College
+        </h1>
 
-            <h2>
-                Mirpur-1, Dhaka, Bangladesh
-            </h2>
-
-        </div>
+        <h2>
+            Mirpur-1, Dhaka, Bangladesh
+        </h2>
 
     </div>
+
+</div>
 
 </header>
 
 
 
-<!-- =====================================================
-     NOTICE
-===================================================== -->
+
+<!-- ===================================================== NOTICE ===================================================== -->
 
 <main class="notice-box">
 
-    <section class="notice-card">
+<section class="notice-card">
 
-        <div class="badge">
-            📢 NOTICE
+    <div class="badge">
+        📢 NOTICE
+    </div>
+
+    <div id="notice-heading">
+        লোড হচ্ছে...
+    </div>
+
+    <div id="notice">
+    </div>
+
+    <!-- NOTICE IMAGE -->
+    <div id="notice-image-container">
+
+        <img
+            id="notice-image"
+            src=""
+            alt="Notice Image"
+        >
+
+    </div>
+
+    <div id="date">
+    </div>
+
+</section>
+
+
+<aside class="people-strip">
+
+    <div class="person-card">
+
+        <img
+            src="chairman.jpg"
+            alt="জনাব মো: আমিনুল আকতার"
+            class="person-photo"
+        >
+
+        <div class="person-name">
+            জনাব মো: আমিনুল আক্তার
         </div>
 
-        <div id="notice-heading">
-            লোড হচ্ছে...
+        <div class="person-title">
+            সভাপতি
         </div>
 
-        <div id="notice">
+        <div class="person-sub">
         </div>
 
-        <!-- NOTICE IMAGE -->
-        <div id="notice-image-container">
+        কলেজ গভর্নিং বডি
 
-            <img
-                id="notice-image"
-                src=""
-                alt="Notice Image"
-            >
+    </div>
 
+
+    <div class="person-card">
+
+        <img
+            src="principal.jpg"
+            alt="জনাব: রানা ফেরদৌস রত্না"
+            class="person-photo"
+        >
+
+        <div class="person-name">
+            জনাব: রানা ফেরদৌস রত্না
         </div>
 
-        <div id="date">
+        <div class="person-title">
+            অধ্যক্ষ
         </div>
 
-    </section>
-
-
-    <aside class="people-strip">
-
-        <div class="person-card">
-
-            <img
-                src="chairman.jpg"
-                alt="জনাব মো: আমিনুল আকতার"
-                class="person-photo"
-            >
-
-            <div class="person-name">
-                জনাব মো: আমিনুল আক্তার
-            </div>
-
-            <div class="person-title">
-                সভাপতি
-            </div>
-
-            <div class="person-sub">
-            </div>
-
-            কলেজ গভর্নিং বডি
-
+        <div class="person-sub">
+            হযরত শাহ আলী মহিলা কলেজ ও
         </div>
 
+        সিন্ডিকেট সদস্য, জাতীয় বিশ্ববিদ্যালয়
 
-        <div class="person-card">
+    </div>
 
-            <img
-                src="principal.jpg"
-                alt="জনাব: রানা ফেরদৌস রত্না"
-                class="person-photo"
-            >
-
-            <div class="person-name">
-                জনাব: রানা ফেরদৌস রত্না
-            </div>
-
-            <div class="person-title">
-                অধ্যক্ষ
-            </div>
-
-            <div class="person-sub">
-                হযরত শাহ আলী মহিলা কলেজ ও
-            </div>
-
-            সিন্ডিকেট সদস্য, জাতীয় বিশ্ববিদ্যালয়
-
-        </div>
-
-    </aside>
+</aside>
 
 </main>
 
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+
+<!-- ===================================================== FOOTER ===================================================== -->
 
 <footer class="footer">
 
-    <div>
+<div>
 
-        🕒
+    🕒
 
-        <span id="clock">
-            --:--:--
-        </span>
+    <span id="clock">
+        --:--:--
+    </span>
 
-    </div>
-
-
-    <div class="footer-center">
-        Hazrat Shah Ali Mohila College
-    </div>
+</div>
 
 
-    <div>
+<div class="footer-center">
+    Hazrat Shah Ali Mohila College
+</div>
 
-        <span id="today">
-            --
-        </span>
 
-    </div>
+<div>
+
+    <span id="today">
+        --
+    </span>
+
+</div>
 
 </footer>
 
 
 
-<!-- =====================================================
-     BOTTOM
-===================================================== -->
+
+<!-- ===================================================== BOTTOM ===================================================== -->
 
 <div class="bottom">
 
-    শিক্ষাই আলো, শিক্ষাই শক্তি
+শিক্ষাই আলো, শিক্ষাই শক্তি
 
 </div>
 
 
 
-<script>
 
-/* =====================================================
-   GOOGLE SHEET API
-===================================================== */
-
-const API_URL =
-'https://script.google.com/macros/s/AKfycbyB7wcOoj99szlMTOf5oijdv_46ACWZm0AIbUdOM8UHTQvDNyg6ZWflSC0R8VPDeGCr/exec';
-
-
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
-let notices = [];
-
-let current = 0;
-
-let noticeTimer = null;
-
-
-
-/* =====================================================
-   LOAD NOTICES
-===================================================== */
-
-function loadNotices(){
-
-    const callbackName =
-    'showNotices';
-
-
-    window[callbackName] =
-    function(data){
-
-        notices =
-        Array.isArray(data)
-        ? data
-        : [];
-
-
-        /* ---------------------------------------------
-           NO NOTICE
-        --------------------------------------------- */
-
-        if(notices.length === 0){
-
-            document
-            .getElementById('notice-heading')
-            .innerText =
-            'নোটিশ নেই';
-
-
-            document
-            .getElementById('notice')
-            .innerText =
-            'বর্তমানে কোনো নতুন নোটিশ নেই';
-
-
-            document
-            .getElementById('notice-image-container')
-            .style.display =
-            'none';
-
-
-            document
-            .getElementById('date')
-            .innerText =
-            '';
-
-            return;
-        }
-
-
-        current = 0;
-
-        showNotice();
-
-    };
-
-
-    /* ---------------------------------------------
-       REMOVE OLD SCRIPT
-    --------------------------------------------- */
-
-    const oldScript =
-    document.getElementById(
-        'noticeScript'
-    );
-
-
-    if(oldScript){
-
-        oldScript.remove();
-
-    }
-
-
-    /* ---------------------------------------------
-       CREATE JSONP SCRIPT
-    --------------------------------------------- */
-
-    const script =
-    document.createElement(
-        'script'
-    );
-
-
-    script.id =
-    'noticeScript';
-
-
-    script.src =
-    API_URL +
-    '?callback=' +
-    callbackName +
-    '&t=' +
-    Date.now();
-
-
-    /* ---------------------------------------------
-       ERROR
-    --------------------------------------------- */
-
-    script.onerror =
-    function(){
-
-        document
-        .getElementById('notice-heading')
-        .innerText =
-        'সংযোগ সমস্যা';
-
-
-        document
-        .getElementById('notice')
-        .innerText =
-        'নোটিশ লোড করা যাচ্ছে না';
-
-
-        document
-        .getElementById('notice-image-container')
-        .style.display =
-        'none';
-
-
-        document
-        .getElementById('date')
-        .innerText =
-        'ইন্টারনেট সংযোগ পরীক্ষা করুন';
-
-    };
-
-
-    document
-    .body
-    .appendChild(script);
-
-}
-
-
-
-/* =====================================================
-   AUTO HEADING SIZE
-===================================================== */
-
-function adjustHeadingSize(){
-
-    const heading =
-    document.getElementById(
-        'notice-heading'
-    );
-
-    const length =
-    heading.innerText
-    .trim()
-    .length;
-
-    const vw =
-    Math.min(
-        window.innerWidth,
-        3840
-    );
-
-    let size;
-
-
-    if(vw <= 768){
-
-        if(length <= 20)
-            size =
-            'clamp(24px, 7.5vw, 31px)';
-
-        else if(length <= 35)
-            size =
-            'clamp(22px, 6.5vw, 29px)';
-
-        else
-            size =
-            'clamp(19px, 5.7vw, 26px)';
-
-    }
-
-    else{
-
-        if(length <= 20)
-            size =
-            'clamp(30px, 2.6vw, 70px)';
-
-        else if(length <= 35)
-            size =
-            'clamp(28px, 2.3vw, 62px)';
-
-        else if(length <= 50)
-            size =
-            'clamp(25px, 2vw, 54px)';
-
-        else if(length <= 70)
-            size =
-            'clamp(22px, 1.75vw, 48px)';
-
-        else
-            size =
-            'clamp(20px, 1.5vw, 42px)';
-
-    }
-
-    heading.style.fontSize =
-    size;
-
-}
-
-
-
-/* =====================================================
-   SHOW NOTICE
-===================================================== */
-
-function showNotice(){
-
-    if(notices.length === 0){
-
-        return;
-
-    }
-
-
-    const item =
-    notices[current];
-
-
-
-    /* ---------------------------------------------
-       HEADING
-    --------------------------------------------- */
-
-    const heading =
-    document.getElementById(
-        'notice-heading'
-    );
-
-
-    heading.innerText =
-    item.heading || '';
-
-
-    adjustHeadingSize();
-
-
-
-    /* ---------------------------------------------
-       NOTICE TEXT
-    --------------------------------------------- */
-
-    const paragraph =
-    document.getElementById(
-        'notice'
-    );
-
-
-    paragraph.innerText =
-    item.notice || '';
-
-
-
-    /* ---------------------------------------------
-       NOTICE IMAGE
-    --------------------------------------------- */
-
-    const imageContainer =
-    document.getElementById(
-        'notice-image-container'
-    );
-
-
-    const image =
-    document.getElementById(
-        'notice-image'
-    );
-
-
-    const imageURL =
-    item.image
-    ? String(item.image).trim()
-    : '';
-
-
-    if(imageURL){
-
-        image.src =
-        imageURL;
-
-        imageContainer.style.display =
-        'flex';
-
-    }
-
-    else{
-
-        image.src =
-        '';
-
-        imageContainer.style.display =
-        'none';
-
-    }
-
-
-
-    /* ---------------------------------------------
-       DATE
-    --------------------------------------------- */
-
-    const dateElement =
-    document.getElementById(
-        'date'
-    );
-
-
-    if(item.date){
-
-        const d =
-        new Date(
-            item.date
-        );
-
-
-        if(!isNaN(d.getTime())){
-
-            dateElement.innerText =
-            ' তারিখ: ' +
-
-            d.toLocaleDateString(
-                'bn-BD',
-                {
-                    day:'numeric',
-                    month:'long',
-                    year:'numeric'
-                }
-            );
-
-        }
-
-        else{
-
-            dateElement.innerText =
-            ' তারিখ: ' +
-            item.date;
-
-        }
-
-    }
-
-    else{
-
-        dateElement.innerText =
-        '';
-
-    }
-
-
-
-    /* ---------------------------------------------
-       READING TIME
-    --------------------------------------------- */
-
-    const text =
-    (item.notice || '')
-    .trim();
-
-
-    const characters =
-    text.length;
-
-
-    let seconds;
-
-
-    if(characters <= 80){
-
-        seconds = 5;
-
-    }
-
-    else if(characters <= 160){
-
-        seconds = 8;
-
-    }
-
-    else if(characters <= 250){
-
-        seconds = 12;
-
-    }
-
-    else if(characters <= 350){
-
-        seconds = 16;
-
-    }
-
-    else if(characters <= 500){
-
-        seconds = 20;
-
-    }
-
-    else if(characters <= 700){
-
-        seconds = 25;
-
-    }
-
-    else{
-
-        seconds = 30;
-
-    }
-
-
-
-    /* ---------------------------------------------
-       CLEAR OLD TIMER
-    --------------------------------------------- */
-
-    if(noticeTimer){
-
-        clearTimeout(
-            noticeTimer
-        );
-
-    }
-
-
-
-    /* ---------------------------------------------
-       NEXT NOTICE
-    --------------------------------------------- */
-
-    noticeTimer =
-    setTimeout(
-        function(){
-
-            if(notices.length > 1){
-
-                current++;
-
-                if(
-                    current >=
-                    notices.length
-                ){
-
-                    current = 0;
-
-                }
-
-                showNotice();
-
-            }
-
-        },
-        seconds * 1000
-    );
-
-}
-
-
-
-/* =====================================================
-   CLOCK
-===================================================== */
-
-function updateClock(){
-
-    const now =
-    new Date();
-
-
-    /* ---------------------------------------------
-       TIME
-    --------------------------------------------- */
-
-    document
-    .getElementById('clock')
-    .innerText =
-
-    now.toLocaleTimeString(
-        'bn-BD',
-        {
-            hour12:true
-        }
-    );
-
-
-    /* ---------------------------------------------
-       DATE
-    --------------------------------------------- */
-
-    document
-    .getElementById('today')
-    .innerText =
-
-    now.toLocaleDateString(
-        'bn-BD',
-        {
-            weekday:'long',
-            day:'numeric',
-            month:'long',
-            year:'numeric'
-        }
-    );
-
-}
-
-
-
-/* =====================================================
-   START CLOCK
-===================================================== */
-
-updateClock();
-
-
-setInterval(
-    updateClock,
-    1000
-);
-
-
-
-/* =====================================================
-   FIRST NOTICE LOAD
-===================================================== */
-
-loadNotices();
-
-
-
-/* =====================================================
-   REFRESH NOTICE DATA
-   EVERY 30 SECONDS
-===================================================== */
-
-setInterval(
-    loadNotices,
-    30000
-);
-
-</script>
-
+<script> /* ===================================================== GOOGLE SHEET API ===================================================== */ const API_URL = 'https://script.google.com/macros/s/AKfycbyM6nadpOV1SDPbpv3wUmifIIQ7AaiCJT4yq3O24mR3OjI1LAiF1exV_1mD6sMA2Vdj/exec'; /* ===================================================== VARIABLES ===================================================== */ let notices = []; let current = 0; let noticeTimer = null; /* ===================================================== LOAD NOTICES ===================================================== */ function loadNotices(){ const callbackName = 'showNotices'; window[callbackName] = function(data){ notices = Array.isArray(data) ? data : []; /* --------------------------------------------- NO NOTICE --------------------------------------------- */ if(notices.length === 0){ document .getElementById('notice-heading') .innerText = 'নোটিশ নেই'; document .getElementById('notice') .innerText = 'বর্তমানে কোনো নতুন নোটিশ নেই'; document .getElementById('notice-image-container') .style.display = 'none'; document .getElementById('date') .innerText = ''; return; } current = 0; showNotice(); }; /* --------------------------------------------- REMOVE OLD SCRIPT --------------------------------------------- */ const oldScript = document.getElementById( 'noticeScript' ); if(oldScript){ oldScript.remove(); } /* --------------------------------------------- CREATE JSONP SCRIPT --------------------------------------------- */ const script = document.createElement( 'script' ); script.id = 'noticeScript'; script.src = API_URL + '?callback=' + callbackName + '&t=' + Date.now(); /* --------------------------------------------- ERROR --------------------------------------------- */ script.onerror = function(){ document .getElementById('notice-heading') .innerText = 'সংযোগ সমস্যা'; document .getElementById('notice') .innerText = 'নোটিশ লোড করা যাচ্ছে না'; document .getElementById('notice-image-container') .style.display = 'none'; document .getElementById('date') .innerText = 'ইন্টারনেট সংযোগ পরীক্ষা করুন'; }; document .body .appendChild(script); } /* ===================================================== AUTO HEADING SIZE ===================================================== */ function adjustHeadingSize(){ const heading = document.getElementById( 'notice-heading' ); const length = heading.innerText .trim() .length; const vw = Math.min( window.innerWidth, 3840 ); let size; if(vw <= 768){ if(length <= 20) size = 'clamp(24px, 7.5vw, 31px)'; else if(length <= 35) size = 'clamp(22px, 6.5vw, 29px)'; else size = 'clamp(19px, 5.7vw, 26px)'; } else{ if(length <= 20) size = 'clamp(30px, 2.6vw, 70px)'; else if(length <= 35) size = 'clamp(28px, 2.3vw, 62px)'; else if(length <= 50) size = 'clamp(25px, 2vw, 54px)'; else if(length <= 70) size = 'clamp(22px, 1.75vw, 48px)'; else size = 'clamp(20px, 1.5vw, 42px)'; } heading.style.fontSize = size; } /* ===================================================== SHOW NOTICE ===================================================== */ function showNotice(){ if(notices.length === 0){ return; } const item = notices[current]; /* --------------------------------------------- HEADING --------------------------------------------- */ const heading = document.getElementById( 'notice-heading' ); heading.innerText = item.heading || ''; adjustHeadingSize(); /* --------------------------------------------- NOTICE TEXT --------------------------------------------- */ const paragraph = document.getElementById( 'notice' ); paragraph.innerText = item.notice || ''; /* --------------------------------------------- NOTICE IMAGE --------------------------------------------- */ const imageContainer = document.getElementById( 'notice-image-container' ); const image = document.getElementById( 'notice-image' ); const imageURL = item.image ? String(item.image).trim() : ''; if(imageURL){ image.src = imageURL; imageContainer.style.display = 'flex'; } else{ image.src = ''; imageContainer.style.display = 'none'; } /* --------------------------------------------- DATE --------------------------------------------- */ const dateElement = document.getElementById( 'date' ); if(item.date){ const d = new Date( item.date ); if(!isNaN(d.getTime())){ dateElement.innerText = ' তারিখ: ' + d.toLocaleDateString( 'bn-BD', { day:'numeric', month:'long', year:'numeric' } ); } else{ dateElement.innerText = ' তারিখ: ' + item.date; } } else{ dateElement.innerText = ''; } /* --------------------------------------------- READING TIME --------------------------------------------- */ const text = (item.notice || '') .trim(); const characters = text.length; let seconds; if(characters <= 80){ seconds = 5; } else if(characters <= 160){ seconds = 8; } else if(characters <= 250){ seconds = 12; } else if(characters <= 350){ seconds = 16; } else if(characters <= 500){ seconds = 20; } else if(characters <= 700){ seconds = 25; } else{ seconds = 30; } /* --------------------------------------------- CLEAR OLD TIMER --------------------------------------------- */ if(noticeTimer){ clearTimeout( noticeTimer ); } /* --------------------------------------------- NEXT NOTICE --------------------------------------------- */ noticeTimer = setTimeout( function(){ if(notices.length > 1){ current++; if( current >= notices.length ){ current = 0; } showNotice(); } }, seconds * 1000 ); } /* ===================================================== CLOCK ===================================================== */ function updateClock(){ const now = new Date(); /* --------------------------------------------- TIME --------------------------------------------- */ document .getElementById('clock') .innerText = now.toLocaleTimeString( 'bn-BD', { hour12:true } ); /* --------------------------------------------- DATE --------------------------------------------- */ document .getElementById('today') .innerText = now.toLocaleDateString( 'bn-BD', { weekday:'long', day:'numeric', month:'long', year:'numeric' } ); } /* ===================================================== START CLOCK ===================================================== */ updateClock(); setInterval( updateClock, 1000 ); /* ===================================================== FIRST NOTICE LOAD ===================================================== */ loadNotices(); /* ===================================================== REFRESH NOTICE DATA EVERY 30 SECONDS ===================================================== */ setInterval( loadNotices, 30000 ); </script>
 
 </body>
 
 </html>
+
+Close
